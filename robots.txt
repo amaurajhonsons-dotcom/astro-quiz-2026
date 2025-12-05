@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /quizzes/
+Allow: /css/
+Allow: /js/
+
+Disallow: /api/
+Disallow: /data/
+Disallow: /includes/
+
+Sitemap: https://astroquiz2026.in/sitemap.xml
