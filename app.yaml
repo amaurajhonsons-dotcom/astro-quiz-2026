@@ -1,0 +1,10 @@
+name: astro-quiz-2026
+region: nyc1
+services:
+- name: web
+  git:
+    repo_clone_url: https://github.com/amaurajhonsons-dotcom/astro-quiz-2026.git
+    branch: main
+  http_port: 80
+  source_dir: /
+  build_command: rm -rf .git

@@ -1,94 +1,109 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
-<script type="text/javascript">
-  // This is a CodeSandbox injection script that's used to
-  // add navigation and inspector functionality to the preview
-  (function () {
-    // 1) Get the <script> tag that's currently running:
-    var me = document.currentScript;
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D48MDRZJLY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-    // 2) Create the blocking‐style <script> to load:
-    var script = document.createElement("script");
-    script.src = "https://codesandbox.io/p/preview-protocol.js";
+      gtag('config', 'G-D48MDRZJLY');
+    </script>
+    <script type="text/javascript">
+        // This is a CodeSandbox injection script that's used to
+        // add navigation and inspector functionality to the preview
+        (function () {
+            // 1) Get the <script> tag that's currently running:
+            var me = document.currentScript;
 
-    // By default a dynamically‐inserted <script> is async=true.
-    // Turn async off to make it behave like a normal blocking <script>:
-    script.async = false;
-    // (Do NOT set defer.)
+            // 2) Create the blocking‐style <script> to load:
+            var script = document.createElement("script");
+            script.src = "https://codesandbox.io/p/preview-protocol.js";
 
-    // 3) Insert it immediately after the current <script>:
-    me.parentNode.insertBefore(script, me);
-  })();
+            // By default a dynamically‐inserted <script> is async=true.
+            // Turn async off to make it behave like a normal blocking <script>:
+            script.async = false;
+            // (Do NOT set defer.)
 
-  const isIFramePreview = window.top !== window.self;
+            // 3) Insert it immediately after the current <script>:
+            me.parentNode.insertBefore(script, me);
+        })();
 
-  // Only run this script in editor context
-  if (isIFramePreview) {
-    // This script is used to enable Chrome DevTools functionality
-    (function () {
-      var script = document.createElement("script");
-      script.src =
-        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+        const isIFramePreview = window.top !== window.self;
 
-      script.onload = () => {
-        const devtoolProtocol = window.chobitsu;
-        if (devtoolProtocol) {
-          window.addEventListener("message", (event) => {
-            const { type, data } = event.data;
+        // Only run this script in editor context
+        if (isIFramePreview) {
+            // This script is used to enable Chrome DevTools functionality
+            (function () {
+                var script = document.createElement("script");
+                script.src =
+                    "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
 
-            if (type === "FROM_DEVTOOL") {
-              devtoolProtocol.sendRawMessage(data);
-            }
-          });
+                script.onload = () => {
+                    const devtoolProtocol = window.chobitsu;
+                    if (devtoolProtocol) {
+                        window.addEventListener("message", (event) => {
+                            const { type, data } = event.data;
 
-          devtoolProtocol.setOnMessage((data) => {
-            if (data.includes('"id":"tmp')) {
-              return;
-            }
+                            if (type === "FROM_DEVTOOL") {
+                                devtoolProtocol.sendRawMessage(data);
+                            }
+                        });
 
-            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
-          });
+                        devtoolProtocol.setOnMessage((data) => {
+                            if (data.includes('"id":"tmp')) {
+                                return;
+                            }
 
-          devtoolProtocol.sendRawMessage(
-            `{"id":5,"method":"Runtime.enable","params":{}}`
-          );
-        }        
-      }
+                            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+                        });
 
-      (document.head || document.documentElement).prepend(script);
-    })();
-  }
+                        devtoolProtocol.sendRawMessage(
+                            `{"id":5,"method":"Runtime.enable","params":{}}`
+                        );
+                    }
+                }
 
-  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
-    let nextID = 0;
-    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
-      renderers: new Map(),
-      supportsFiber: true,
-      inject: (renderer) => {
-        const id = nextID++;
-        hook.renderers.set(id, renderer);
-        return id;
-      },
-      onScheduleFiberRoot() {},
-      onCommitFiberRoot() {},
-      onCommitFiberUnmount() {},
-    });
-  }
+                (document.head || document.documentElement).prepend(script);
+            })();
+        }
 
-  document.currentScript.remove();
-</script>
+        if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+            let nextID = 0;
+            let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+                renderers: new Map(),
+                supportsFiber: true,
+                inject: (renderer) => {
+                    const id = nextID++;
+                    hook.renderers.set(id, renderer);
+                    return id;
+                },
+                onScheduleFiberRoot() { },
+                onCommitFiberRoot() { },
+                onCommitFiberUnmount() { },
+            });
+        }
+
+        document.currentScript.remove();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔮 2026 का तुम्हारा फ्यूचर | फ्री AI एस्ट्रो क्विज़</title>
-    <meta name="description" content="2026 में क्या होगा? AI से पता करो तुम्हारा लव मैच, करियर, और पैसा! लिमिटेड रीडिंग - 24 घंटे!">
+    <meta name="description"
+        content="2026 में क्या होगा? AI से पता करो तुम्हारा लव मैच, करियर, और पैसा! लिमिटेड रीडिंग - 24 घंटे!">
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" defer></script>
 </head>
-<body>
+
+<body class="home-body">
+    <!-- Adsterra Social Bar (Top Sticky) -->
+    <script type="text/javascript"
+        src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js"></script>
     <div class="floating-timer">
         ⏰ <span id="timer">23:59:47</span> में खत्म!
     </div>
@@ -97,15 +112,16 @@
         <div class="stars"></div>
         <div class="container">
             <div class="badge pulse">🔥 1,24,583 लोगों ने शेयर किया!</div>
-            
+
             <h1 class="hero-title">
                 <span class="gradient-text">2026 का तुम्हारा</span><br>
                 <span class="big-text">सीक्रेट फ्यूचर?</span>
             </h1>
-            
+
             <p class="hero-subtitle">
                 AI + वैदिक एस्ट्रोलॉजी से पता करो:<br>
-                💘 <strong>लव मैच</strong> कौन? | 💰 <strong>लाखों</strong> मिलेंगे? | 🚀 <strong>करियर बूस्ट</strong> कब?
+                💘 <strong>लव मैच</strong> कौन? | 💰 <strong>लाखों</strong> मिलेंगे? | 🚀 <strong>करियर बूस्ट</strong>
+                कब?
             </p>
 
             <div class="cta-section">
@@ -127,7 +143,7 @@
     <section class="quiz-preview">
         <div class="container">
             <h2 class="section-title">🎯 ये क्विज़ ट्राई करो!</h2>
-            
+
             <div class="quiz-grid">
                 <div class="quiz-card" onclick="loadQuiz('love-match')">
                     <div class="quiz-icon">💘</div>
@@ -238,13 +254,29 @@
         </div>
     </div>
 
+    <!-- Adsterra Mobile Banner 320x50 -->
+    <div style="text-align: center; margin: 40px 0; padding: 20px;">
+        <p style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 10px;">SPONSORED</p>
+        <script type="text/javascript">
+            atOptions = {
+                'key': '23c858baf0517be4c93981cd8786b93c',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'params': {}
+            };
+        </script>
+        <script type="text/javascript"
+            src="//www.highperformanceformat.com/23c858baf0517be4c93981cd8786b93c/invoke.js"></script>
+    </div>
+
     <footer class="footer">
         <div class="container">
-            <p>© 2026 AstroQuiz | Made with ❤️ in India</p>
+            <p>&copy; 2026 AstroQuiz. All Rights Reserved.</p>
             <div class="footer-links">
-                <a href="#privacy">Privacy</a>
-                <a href="#terms">Terms</a>
-                <a href="#contact">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
             </div>
         </div>
     </footer>
@@ -253,4 +285,5 @@
     <script src="js/quiz-engine.js"></script>
     <script src="js/viral-hooks.js"></script>
 </body>
+
 </html>

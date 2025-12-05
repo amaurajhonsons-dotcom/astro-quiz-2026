@@ -1,185 +1,215 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
-<script type="text/javascript">
-  // This is a CodeSandbox injection script that's used to
-  // add navigation and inspector functionality to the preview
-  (function () {
-    // 1) Get the <script> tag that's currently running:
-    var me = document.currentScript;
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D48MDRZJLY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-    // 2) Create the blocking‐style <script> to load:
-    var script = document.createElement("script");
-    script.src = "https://codesandbox.io/p/preview-protocol.js";
-
-    // By default a dynamically‐inserted <script> is async=true.
-    // Turn async off to make it behave like a normal blocking <script>:
-    script.async = false;
-    // (Do NOT set defer.)
-
-    // 3) Insert it immediately after the current <script>:
-    me.parentNode.insertBefore(script, me);
-  })();
-
-  const isIFramePreview = window.top !== window.self;
-
-  // Only run this script in editor context
-  if (isIFramePreview) {
-    // This script is used to enable Chrome DevTools functionality
+    gtag('config', 'G-D48MDRZJLY');
+  </script>
+  <script type="text/javascript">
+    // This is a CodeSandbox injection script that's used to
+    // add navigation and inspector functionality to the preview
     (function () {
+      // 1) Get the <script> tag that's currently running:
+      var me = document.currentScript;
+
+      // 2) Create the blocking‐style <script> to load:
       var script = document.createElement("script");
-      script.src =
-        "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+      script.src = "https://codesandbox.io/p/preview-protocol.js";
 
-      script.onload = () => {
-        const devtoolProtocol = window.chobitsu;
-        if (devtoolProtocol) {
-          window.addEventListener("message", (event) => {
-            const { type, data } = event.data;
+      // By default a dynamically‐inserted <script> is async=true.
+      // Turn async off to make it behave like a normal blocking <script>:
+      script.async = false;
+      // (Do NOT set defer.)
 
-            if (type === "FROM_DEVTOOL") {
-              devtoolProtocol.sendRawMessage(data);
-            }
-          });
-
-          devtoolProtocol.setOnMessage((data) => {
-            if (data.includes('"id":"tmp')) {
-              return;
-            }
-
-            window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
-          });
-
-          devtoolProtocol.sendRawMessage(
-            `{"id":5,"method":"Runtime.enable","params":{}}`
-          );
-        }        
-      }
-
-      (document.head || document.documentElement).prepend(script);
+      // 3) Insert it immediately after the current <script>:
+      me.parentNode.insertBefore(script, me);
     })();
-  }
 
-  if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
-    let nextID = 0;
-    let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
-      renderers: new Map(),
-      supportsFiber: true,
-      inject: (renderer) => {
-        const id = nextID++;
-        hook.renderers.set(id, renderer);
-        return id;
-      },
-      onScheduleFiberRoot() {},
-      onCommitFiberRoot() {},
-      onCommitFiberUnmount() {},
-    });
-  }
+    const isIFramePreview = window.top !== window.self;
 
-  document.currentScript.remove();
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="quizTitle">AI क्विज़ | AstroQuiz 2026</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/quiz.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    // Only run this script in editor context
+    if (isIFramePreview) {
+      // This script is used to enable Chrome DevTools functionality
+      (function () {
+        var script = document.createElement("script");
+        script.src =
+          "https://codesandbox.io/p/chrome-devtool/protocol/index.js";
+
+        script.onload = () => {
+          const devtoolProtocol = window.chobitsu;
+          if (devtoolProtocol) {
+            window.addEventListener("message", (event) => {
+              const { type, data } = event.data;
+
+              if (type === "FROM_DEVTOOL") {
+                devtoolProtocol.sendRawMessage(data);
+              }
+            });
+
+            devtoolProtocol.setOnMessage((data) => {
+              if (data.includes('"id":"tmp')) {
+                return;
+              }
+
+              window.parent.postMessage({ type: "TO_DEVTOOL", data }, "*");
+            });
+
+            devtoolProtocol.sendRawMessage(
+              `{"id":5,"method":"Runtime.enable","params":{}}`
+            );
+          }
+        }
+
+        (document.head || document.documentElement).prepend(script);
+      })();
+    }
+
+    if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined") {
+      let nextID = 0;
+      let hook = (__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+        renderers: new Map(),
+        supportsFiber: true,
+        inject: (renderer) => {
+          const id = nextID++;
+          hook.renderers.set(id, renderer);
+          return id;
+        },
+        onScheduleFiberRoot() { },
+        onCommitFiberRoot() { },
+        onCommitFiberUnmount() { },
+      });
+    }
+
+    document.currentScript.remove();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="quizTitle">AI क्विज़ | AstroQuiz 2026</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/quiz.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body class="quiz-body">
-    <div class="quiz-container">
-        <div class="quiz-header">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
-            <div class="question-counter">
-                <span id="currentQuestion">1</span> / <span id="totalQuestions">5</span>
-            </div>
-        </div>
+  <!-- Adsterra Social Bar (Top Sticky) -->
+  <script type="text/javascript"
+    src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js"></script>
 
-        <div class="quiz-content" id="quizContent">
-            <h1 class="quiz-title" id="quizMainTitle"></h1>
-            <p class="quiz-subtitle" id="quizSubtitle"></p>
-
-            <div class="question-section" id="questionSection">
-                <h2 class="question-text" id="questionText"></h2>
-                <div class="options-grid" id="optionsGrid"></div>
-            </div>
-
-            <div class="quiz-navigation">
-                <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" style="display:none;">⬅ पिछला</button>
-                <button class="nav-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">अगला ➡</button>
-            </div>
-        </div>
-
-        <div class="loading-screen" id="loadingScreen" style="display:none;">
-            <div class="loading-content">
-                <div class="loader"></div>
-                <h2>🔮 AI तुम्हारा फ्यूचर देख रहा है...</h2>
-                <p id="loadingText">राशि चार्ट एनालाइज कर रहे हैं...</p>
-            </div>
-        </div>
-
-        <div class="result-screen" id="resultScreen" style="display:none;">
-            <div class="result-content">
-                <div class="result-badge pulse">🎯 तुम्हारा रिजल्ट!</div>
-                
-                <div class="result-card" id="resultCard">
-                    <h2 id="resultTitle"></h2>
-                    <div class="result-score">
-                        <div class="score-circle">
-                            <span id="resultScore">95</span>%
-                        </div>
-                    </div>
-                    <div class="result-details" id="resultDetails"></div>
-                </div>
-
-                <div class="share-section">
-                    <h3>🔥 फ्रेंड्स को भेजो!</h3>
-                    <p>शेयर करो और अनलॉक करो <strong>एक्स्ट्रा प्रेडिक्शन</strong> 🎁</p>
-                    <div class="share-buttons">
-                        <button class="share-btn whatsapp" onclick="shareWhatsApp()">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                            WhatsApp
-                        </button>
-                        <button class="share-btn twitter" onclick="shareTwitter()">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                            X (Twitter)
-                        </button>
-                        <button class="share-btn download" onclick="downloadResult()">
-                            📥 डाउनलोड इमेज
-                        </button>
-                    </div>
-                </div>
-
-                <div class="referral-section">
-                    <div class="referral-card">
-                        <h4>🎁 3 फ्रेंड्स को भेजो = फ्री बोनस रीडिंग!</h4>
-                        <div class="referral-progress">
-                            <div class="referral-bar">
-                                <div class="referral-fill" id="referralFill" style="width: 0%"></div>
-                            </div>
-                            <p><span id="referralCount">0</span>/3 शेयर्स</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="more-quizzes">
-                    <h3>🎯 और क्विज़ ट्राई करो!</h3>
-                    <div class="mini-quiz-grid" id="moreQuizzes"></div>
-                </div>
-
-                <div class="adsterra-ad">
-                    <div class="ad-placeholder">
-                        [Adsterra Popunder यहां ट्रिगर होगा]
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <div class="question-counter">
+        <span id="currentQuestion">1</span> / <span id="totalQuestions">5</span>
+      </div>
     </div>
 
-    <script src="../js/quiz-engine.js"></script>
-    <script src="../js/viral-hooks.js"></script>
-    <script src="../js/quiz-handler.js"></script>
-    <script src="../js/result-generator.js"></script>
+    <div class="quiz-content" id="quizContent">
+      <h1 class="quiz-title" id="quizMainTitle"></h1>
+      <p class="quiz-subtitle" id="quizSubtitle"></p>
+
+      <div class="question-section" id="questionSection">
+        <h2 class="question-text" id="questionText"></h2>
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <!-- Adsterra Native Banner (Hidden by Default) -->
+        <div id="native-ad-main" style="display: none; margin: 20px 0; text-align: center;">
+          <p style="font-size: 11px; color: #94a3b8; margin-bottom: 5px;">SPONSORED</p>
+          <script async="async" data-cfasync="false"
+            src="//pl28198035.effectivegatecpm.com/22b5b375418fa9ba91a6ac1d780f3cbf/invoke.js"></script>
+          <div id="container-22b5b375418fa9ba91a6ac1d780f3cbf"></div>
+        </div>
+      </div>
+
+      <div class="quiz-navigation">
+        <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" style="display:none;">⬅ पिछला</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">अगला ➡</button>
+      </div>
+    </div>
+
+    <div class="loading-screen" id="loadingScreen" style="display:none;">
+      <div class="loading-content">
+        <div class="loader"></div>
+        <h2>🔮 AI तुम्हारा फ्यूचर देख रहा है...</h2>
+        <p id="loadingText">राशि चार्ट एनालाइज कर रहे हैं...</p>
+      </div>
+    </div>
+
+    <div class="result-screen" id="resultScreen" style="display:none;">
+      <div class="result-content">
+        <div class="result-badge pulse">🎯 तुम्हारा रिजल्ट!</div>
+
+        <div class="result-card" id="resultCard">
+          <h2 id="resultTitle"></h2>
+          <div class="result-score">
+            <div class="score-circle">
+              <span id="resultScore">95</span>%
+            </div>
+          </div>
+          <div class="result-details" id="resultDetails"></div>
+        </div>
+
+        <div class="share-section">
+          <h3>🔥 फ्रेंड्स को भेजो!</h3>
+          <p>शेयर करो और अनलॉक करो <strong>एक्स्ट्रा प्रेडिक्शन</strong> 🎁</p>
+          <div class="share-buttons">
+            <button class="share-btn whatsapp" onclick="shareWhatsApp()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+              </svg>
+              WhatsApp
+            </button>
+            <button class="share-btn twitter" onclick="shareTwitter()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              X (Twitter)
+            </button>
+            <button class="share-btn download" onclick="downloadResult()">
+              📥 डाउनलोड इमेज
+            </button>
+          </div>
+        </div>
+
+        <div class="referral-section">
+          <div class="referral-card">
+            <h4>🎁 3 फ्रेंड्स को भेजो = फ्री बोनस रीडिंग!</h4>
+            <div class="referral-progress">
+              <div class="referral-bar">
+                <div class="referral-fill" id="referralFill" style="width: 0%"></div>
+              </div>
+              <p><span id="referralCount">0</span>/3 शेयर्स</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="more-quizzes">
+          <h3>🎯 और क्विज़ ट्राई करो!</h3>
+          <div class="mini-quiz-grid" id="moreQuizzes"></div>
+        </div>
+
+        <div class="adsterra-ad">
+          <div class="ad-placeholder">
+            [Adsterra Popunder यहां ट्रिगर होगा]
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/quiz-engine.js"></script>
+  <script src="../js/viral-hooks.js"></script>
+  <script src="../js/quiz-handler.js"></script>
+  <script src="../js/result-generator.js"></script>
 </body>
+
 </html>

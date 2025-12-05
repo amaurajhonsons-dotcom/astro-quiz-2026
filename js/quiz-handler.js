@@ -7,64 +7,74 @@ window.addEventListener('load', initializeQuiz);
 function initializeQuiz() {
     const urlParams = new URLSearchParams(window.location.search);
     const quizId = urlParams.get('id') || 'love-match';
-    
+
     currentQuizData = getQuizData(quizId);
-    
+
     if (!currentQuizData) {
         window.location.href = '../index.html';
         return;
     }
-    
+
     document.getElementById('quizTitle').textContent = currentQuizData.title;
     document.getElementById('quizMainTitle').textContent = currentQuizData.title;
     document.getElementById('quizSubtitle').textContent = currentQuizData.subtitle;
     document.getElementById('totalQuestions').textContent = currentQuizData.questions.length;
-    
+
     displayQuestion();
     updateProgress();
 }
 
 function displayQuestion() {
     const question = currentQuizData.questions[currentQuestion];
-    
+
     document.getElementById('currentQuestion').textContent = currentQuestion + 1;
     document.getElementById('questionText').textContent = question.question;
-    
+
     const optionsGrid = document.getElementById('optionsGrid');
     optionsGrid.innerHTML = '';
-    
+
     question.options.forEach((option, index) => {
         const optionCard = document.createElement('div');
         optionCard.className = 'option-card';
         optionCard.onclick = () => selectOption(index, optionCard);
-        
+
         const isSelected = answers[currentQuestion] === option.value;
         if (isSelected) {
             optionCard.classList.add('selected');
         }
-        
+
         optionCard.innerHTML = `
             <span class="option-emoji">${option.emoji}</span>
             <span class="option-text">${option.text}</span>
         `;
-        
+
         optionsGrid.appendChild(optionCard);
     });
-    
+
+    // Show Adsterra Native Ad from Question 3 onwards (Index 2)
+    const nativeAd = document.getElementById('native-ad-main');
+    if (nativeAd) {
+        if (currentQuestion >= 2) {
+            nativeAd.style.display = 'block';
+        } else {
+            nativeAd.style.display = 'none';
+        }
+    }
+
     updateNavigationButtons();
 }
 
 function selectOption(optionIndex, optionCard) {
     const allOptions = document.querySelectorAll('.option-card');
     allOptions.forEach(card => card.classList.remove('selected'));
-    
+
     optionCard.classList.add('selected');
-    
+
     const question = currentQuizData.questions[currentQuestion];
     answers[currentQuestion] = question.options[optionIndex].value;
-    
+
     updateNavigationButtons();
-    
+
     if (currentQuestion < currentQuizData.questions.length - 1) {
         setTimeout(() => {
             nextQuestion();
@@ -79,13 +89,13 @@ function selectOption(optionIndex, optionCard) {
 function updateNavigationButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    
+
     if (currentQuestion > 0) {
         prevBtn.style.display = 'block';
     } else {
         prevBtn.style.display = 'none';
     }
-    
+
     if (answers[currentQuestion] !== undefined) {
         nextBtn.style.display = 'block';
         nextBtn.disabled = false;
@@ -120,14 +130,14 @@ function updateProgress() {
 function finishQuiz() {
     document.getElementById('quizContent').style.display = 'none';
     document.getElementById('loadingScreen').style.display = 'block';
-    
+
     const loadingTexts = [
         'राशि चार्ट एनालाइज कर रहे हैं...',
         'AI प्रेडिक्शन जनरेट हो रहा है...',
         'वैदिक कैलकुलेशन्स...',
         'तुम्हारा पर्सनल रिजल्ट तैयार है!'
     ];
-    
+
     let textIndex = 0;
     const loadingInterval = setInterval(() => {
         if (textIndex < loadingTexts.length) {
@@ -135,7 +145,7 @@ function finishQuiz() {
             textIndex++;
         }
     }, 1000);
-    
+
     setTimeout(() => {
         clearInterval(loadingInterval);
         showResults();
@@ -145,18 +155,18 @@ function finishQuiz() {
 function showResults() {
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'block';
-    
+
     const quizId = new URLSearchParams(window.location.search).get('id');
     const result = generateResult(quizId, answers);
-    
+
     document.getElementById('resultTitle').textContent = result.title;
     document.getElementById('resultScore').textContent = result.score;
     document.getElementById('resultDetails').innerHTML = result.details;
-    
+
     loadMoreQuizzes(quizId);
-    
+
     triggerPopunder();
-    
+
     window.scrollTo(0, 0);
 }
 
@@ -171,24 +181,36 @@ function loadMoreQuizzes(currentQuizId) {
         { id: 'travel-destiny', title: '✈️ ट्रैवल', icon: '✈️' },
         { id: 'marriage-time', title: '💍 शादी', icon: '💍' }
     ];
-    
+
     const otherQuizzes = allQuizzes.filter(q => q.id !== currentQuizId).slice(0, 3);
-    
+
     const moreQuizzesGrid = document.getElementById('moreQuizzes');
     moreQuizzesGrid.innerHTML = '';
-    
+
     otherQuizzes.forEach(quiz => {
         const quizCard = document.createElement('div');
         quizCard.className = 'mini-quiz-card';
         quizCard.onclick = () => {
             window.location.href = `quiz.html?id=${quiz.id}`;
         };
-        
+
         quizCard.innerHTML = `
             <div class="quiz-icon">${quiz.icon}</div>
             <h4>${quiz.title}</h4>
         `;
-        
+
         moreQuizzesGrid.appendChild(quizCard);
     });
+}
+
+function triggerPopunder() {
+    // Adsterra Popunder - Trigger on Result View after 3 seconds
+    // Code provided by user: //pl28198029.effectivegatecpm.com/b4/d2/7c/b4d27c307e96360738531e2b9ceeb8e9.js
+    setTimeout(function () {
+        console.log("Triggering Adsterra Popunder...");
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '//pl28198029.effectivegatecpm.com/b4/d2/7c/b4d27c307e96360738531e2b9ceeb8e9.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }, 3000);
 }
