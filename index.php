@@ -78,10 +78,8 @@
     </script>
 </head>
 
-<body class="home-body">
-    <!-- Adsterra Social Bar (Top Sticky) -->
-    <script type="text/javascript"
-        src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js"></script>
+<body class="cosmic-body">
+    <!-- Adsterra script moved to footer for LCP optimization -->
     <div class="floating-timer">
         ⏰ <span id="timer">23:59:47</span> में खत्म!
     </div>
@@ -285,6 +283,9 @@
         <script type="text/javascript"
             src="//www.highperformanceformat.com/23c858baf0517be4c93981cd8786b93c/invoke.js"></script>
     </div>
+
+    <!-- Adsterra Social Bar (Deferred for Speed) -->
+    <script type="text/javascript" src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js" defer></script>
 
     <footer class="footer">
         <div class="container">
