@@ -28,6 +28,35 @@
             margin-bottom: 20px;
         }
 
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            color: #6200ea;
+            border-bottom: 2px solid #6200ea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -96,69 +125,95 @@
             text-align: center;
         }
     </style>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-functions-compat.js"></script>
 </head>
 
 <body>
 
     <div class="container">
-        <h1>🚀 Push Notification Manager</h1>
+        <h1>🚀 Push Manager</h1>
 
         <div class="stats">
             <div class="stat-card">
                 <div class="stat-number" id="subscriberCount">0</div>
-                <div class="stat-label">Total Subscribers</div>
+                <div class="stat-label">Total Subscribers (Live)</div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Notification Title</label>
-            <input type="text" id="title" placeholder="e.g., 🔮 Aaj ka Rashifal">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('send')">📤 Send Push</div>
+            <div class="tab" onclick="switchTab('design')">🎨 Design Prompt</div>
         </div>
 
-        <div class="form-group">
-            <label>Message Body</label>
-            <textarea id="body" rows="3" placeholder="e.g., Check your lucky number for today!"></textarea>
+        <!-- Send Tab -->
+        <div id="send" class="tab-content active">
+            <div class="form-group">
+                <label>Notification Title</label>
+                <input type="text" id="title" placeholder="e.g., 🔮 Aaj ka Rashifal">
+            </div>
+            <div class="form-group">
+                <label>Message Body</label>
+                <textarea id="body" rows="3" placeholder="e.g., Check your lucky number for today!"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL (Optional)</label>
+                <input type="text" id="image" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label>Click Action URL</label>
+                <input type="text" id="url" value="https://astro-quiz-2026-52bxx.ondigitalocean.app/">
+            </div>
+            <button onclick="sendPush()">📤 Send to All</button>
         </div>
 
-        <div class="form-group">
-            <label>Image URL (Optional)</label>
-            <input type="text" id="image" placeholder="https://...">
+        <!-- Design Tab -->
+        <div id="design" class="tab-content">
+            <div class="form-group">
+                <label>Prompt Title</label>
+                <input type="text" id="p_title" placeholder="Gets Updates!">
+            </div>
+            <div class="form-group">
+                <label>Prompt Subtitle</label>
+                <input type="text" id="p_subtitle" placeholder="Never miss the news...">
+            </div>
+            <div class="form-group">
+                <label>Button Text</label>
+                <input type="text" id="p_btn" placeholder="Allow">
+            </div>
+            <div class="form-group">
+                <label>Icon URL</label>
+                <input type="text" id="p_icon" value="https://cdn-icons-png.flaticon.com/512/3602/3602145.png">
+            </div>
+            <button onclick="saveSettings()">💾 Save Design</button>
         </div>
 
-        <div class="form-group">
-            <label>Click Action URL</label>
-            <input type="text" id="url" value="https://astro-quiz-2026-52bxx.ondigitalocean.app/">
-        </div>
-
-        <button onclick="sendPush()">📤 Send to All</button>
         <p id="status"></p>
     </div>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAPn7Wa7Cw0_NeiGNuCgUlJcIsJjNFTk84",
-            authDomain: "astro-quiz-push-2026.firebaseapp.com",
-            projectId: "astro-quiz-push-2026",
-            storageBucket: "astro-quiz-push-2026.firebasestorage.app",
-            messagingSenderId: "659060108550",
-            appId: "1:659060108550:web:81bfa17f16d75453580287"
-        };
+        // Tab Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
 
-        // Initialize Firebase (Only for Client Auth if needed, but we are using PHP backend)
-        // Actually we don't need Firebase in Admin Panel heavily anymore, but kept for future.
-        // We will use fetch to talk to our PHP backend.
+        // Load Data
+        function loadData() {
+            // Stats
+            fetch('../api/stats.php').then(r => r.json()).then(d => {
+                document.getElementById('subscriberCount').innerText = d.count;
+            });
 
-        function loadStats() {
-            // Simple trick: try to fetch subscribers.json directly if public (insecure but fast) 
-            // OR better, create api/stats.php. For now, let's just say "Ready" or make a quick stats.php
-            // Let's rely on the send_push response for count currently or add a simple counter logic in PHP.
-            // I will add a simple text "Managed by PHP Backend".
-            document.getElementById('subscriberCount').innerText = "PHP";
+            // Settings
+            fetch('../api/settings.php').then(r => r.json()).then(d => {
+                if (d.config) {
+                    document.getElementById('p_title').value = d.config.title;
+                    document.getElementById('p_subtitle').value = d.config.subtitle;
+                    document.getElementById('p_btn').value = d.config.btnText;
+                    document.getElementById('p_icon').value = d.config.icon;
+                }
+            });
         }
 
         function sendPush() {
@@ -169,14 +224,21 @@
 
             if (!title || !body) return alert("Title and Body required!");
 
-            const btn = document.querySelector('button');
+            const btn = document.querySelector('#send button');
             btn.disabled = true;
             btn.innerText = "Sending...";
 
             fetch('../api/send_push.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, body, image, url })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    body,
+                    image,
+                    url
+                })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -198,7 +260,33 @@
                 });
         }
 
-        loadStats();
+        function saveSettings() {
+            const title = document.getElementById('p_title').value;
+            const subtitle = document.getElementById('p_subtitle').value;
+            const btnText = document.getElementById('p_btn').value;
+            const icon = document.getElementById('p_icon').value;
+
+            const btn = document.querySelector('#design button');
+            btn.innerText = "Saving...";
+
+            fetch('../api/settings.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    subtitle,
+                    btnText,
+                    icon
+                })
+            }).then(r => r.json()).then(d => {
+                alert(d.message);
+                btn.innerText = "💾 Save Design";
+            });
+        }
+
+        loadData();
     </script>
 
 </body>
