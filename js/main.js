@@ -59,6 +59,17 @@ function enablePushNotifications() {
     if (window.OneSignalDeferred) {
         window.OneSignalDeferred.push(async function (OneSignal) {
             try {
+                // Check if already blocked
+                if (OneSignal.Notifications.permission === "denied") {
+                    alert("⚠️ आपने Notifications Block कर रखी हैं।\nकृपया Browser Settings में जाकर Reset करें या Allow करें।");
+                    return;
+                }
+
+                if (OneSignal.Notifications.permission === "granted") {
+                    alert('✅ नोटिफिकेशन्स पहले से ही एक्टिव हैं! 🎯');
+                    return;
+                }
+
                 console.log("Requesting permission...");
                 // Request permission and wait for user response
                 const accepted = await OneSignal.Notifications.requestPermission();
@@ -69,9 +80,12 @@ function enablePushNotifications() {
                     alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
                 } else {
                     console.warn("Permission not granted");
+                    // User dismissed or blocked
+                    alert("❌ नोटिफिकेशन Allow नहीं किया गया।\nअपडेट्स के लिए कृपया Allow पर क्लिक करें।");
                 }
             } catch (error) {
                 console.error("Error asking for permission:", error);
+                alert("Error: " + error.message);
             }
         });
     } else {
