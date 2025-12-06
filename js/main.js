@@ -56,16 +56,27 @@ function closePushPopup() {
 function enablePushNotifications() {
     closePushPopup();
 
-    // Check if OneSignalDeferred is available (V16 SDK)
     if (window.OneSignalDeferred) {
         window.OneSignalDeferred.push(async function (OneSignal) {
-            // Request permission using V16 API
-            console.log("Requesting permission...");
-            await OneSignal.Notifications.requestPermission();
-        });
-    }
+            try {
+                console.log("Requesting permission...");
+                // Request permission and wait for user response
+                const accepted = await OneSignal.Notifications.requestPermission();
 
-    alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
+                console.log("Permission state:", accepted);
+
+                if (accepted) {
+                    alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
+                } else {
+                    console.warn("Permission not granted");
+                }
+            } catch (error) {
+                console.error("Error asking for permission:", error);
+            }
+        });
+    } else {
+        alert("सिस्टम लोड हो रहा है, कृपया 2 सेकंड बाद कोशिश करें।");
+    }
 }
 
 window.addEventListener('load', () => {
