@@ -113,22 +113,18 @@ function waitForActiveSW(reg) {
     });
 }
 
-async function saveTokenToBackend(token) {
+async function saveTokenToFirestore(token) {
+    // Reverted to Firestore Direct Save for Reliability
     try {
-        await fetch('api/subscribe.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token: token })
+        await db.collection('subscribers').doc(token).set({
+            token: token,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            platform: navigator.platform,
+            userAgent: navigator.userAgent
         });
-        console.log("Token sent to PHP Backend");
+        console.log("Token saved to Cloud Firestore");
     } catch (error) {
-        try {
-            await fetch('../api/subscribe.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token: token })
-            });
-        } catch (e) { console.error("Error saving token:", error); }
+        console.error("Error saving to Firestore:", error);
     }
 }
 

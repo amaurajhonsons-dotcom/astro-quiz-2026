@@ -21,56 +21,9 @@ $body = $input['body'];
 $image = $input['image'] ?? '';
 $url = $input['url'] ?? '/';
 
-// 1. Get Access Token from Service Account
-function getAccessToken()
-{
-    $credFile = '../includes/fcm_credentials.php';
-    if (!file_exists($credFile)) {
-        throw new Exception("Credentials file not found");
-    }
+require_once '../includes/auth_helper.php';
 
-    $base64 = require $credFile;
-    $jsonKey = base64_decode($base64);
-    $key = json_decode($jsonKey, true);
-
-    if (!$key)
-        throw new Exception("Invalid credentials");
-
-    $now = time();
-    $header = ['alg' => 'RS256', 'typ' => 'JWT'];
-    $payload = [
-        'iss' => $key['client_email'],
-        'sub' => $key['client_email'],
-        'aud' => 'https://oauth2.googleapis.com/token',
-        'iat' => $now,
-        'exp' => $now + 3600,
-        'scope' => 'https://www.googleapis.com/auth/firebase.messaging'
-    ];
-
-    $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($header)));
-    $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($payload)));
-    $signatureInput = $base64UrlHeader . "." . $base64UrlPayload;
-
-    $privateKey = $key['private_key'];
-    openssl_sign($signatureInput, $signature, $privateKey, 'SHA256');
-    $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
-    $jwt = $signatureInput . "." . $base64UrlSignature;
-
-    // Exchange JWT for Access Token
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://oauth2.googleapis.com/token');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-        'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-        'assertion' => $jwt
-    ]));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    $json = json_decode($response, true);
-    return $json['access_token'] ?? null;
-}
+// getAccessToken is available from helper
 
 try {
     $accessToken = getAccessToken();
@@ -78,26 +31,48 @@ try {
         throw new Exception("Failed to get Access Token");
     }
 
-    // 2. Load Subscribers
-    $subscribersFile = '../subscribers.json';
-    if (!file_exists($subscribersFile)) {
-        echo json_encode(['success' => false, 'message' => 'No subscribers found']);
-        exit;
+    // 2. Load Subscribers from Firestore (REST API)
+    // We use the same Access Token (it has scope for database too ideally, or we ensure scope)
+    // Note: The scope 'https://www.googleapis.com/auth/firebase.messaging' might not be enough for Firestore.
+    // We need 'https://www.googleapis.com/auth/datastore' as well.
+    // But first let's update scopes in getAccessToken.
+
+    // Using the token directly with Firestore REST API
+    $projectId = 'astro-quiz-push-2026';
+    $firestoreUrl = "https://firestore.googleapis.com/v1/projects/$projectId/databases/(default)/documents/subscribers?pageSize=1000";
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $firestoreUrl);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $accessToken"]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $fsResponse = curl_exec($ch);
+    curl_close($ch);
+
+    $fsData = json_decode($fsResponse, true);
+    $tokens = [];
+
+    if (isset($fsData['documents'])) {
+        foreach ($fsData['documents'] as $doc) {
+            // Document structure: name, fields, createTime, etc.
+            // ID is the last part of 'name'
+            $pathParts = explode('/', $doc['name']);
+            $token = end($pathParts);
+            if ($token)
+                $tokens[] = $token;
+        }
     }
-    $tokens = json_decode(file_get_contents($subscribersFile), true);
+
     if (empty($tokens)) {
-        echo json_encode(['success' => false, 'message' => 'No subscribers list is empty']);
+        echo json_encode(['success' => false, 'message' => 'No active subscribers in Firestore']);
         exit;
     }
 
-    // 3. Send Messages (Looping for now, ideally batch or queue)
-    $projectId = 'astro-quiz-push-2026';
+    // 3. Send Messages
     $endpoint = "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
 
     $successCount = 0;
     $failureCount = 0;
-    $removedCount = 0;
-    $validTokens = [];
+    $removedCount = 0; // We won't remove from Firestore via PHP yet to match simple logic
 
     foreach ($tokens as $token) {
         $message = [
@@ -142,30 +117,19 @@ try {
 
         if ($httpCode === 200) {
             $successCount++;
-            $validTokens[] = $token;
         } else {
             $failureCount++;
-            // If 404/410, token is invalid. Don't add to validTokens.
-            // Simplified cleanup logic: we rewrite file with only valid tokens + unknown errors (to be safe)
-            // Ideally check response error code.
-            $resJson = json_decode($result, true);
-            $errorCode = $resJson['error']['details'][0]['errorCode'] ?? '';
-            if ($errorCode !== 'UNREGISTERED') {
-                $validTokens[] = $token; // Keep if error is temporary
-            } else {
-                $removedCount++;
-            }
         }
     }
 
-    // Update subscribers file with cleaned list
-    file_put_contents($subscribersFile, json_encode($validTokens));
-
     echo json_encode([
         'success' => true,
-        'message' => "Sent to $successCount users. Failed: $failureCount. Removed: $removedCount",
+        'message' => "Sent to $successCount users. Failed: $failureCount",
         'stats' => ['success' => $successCount, 'failure' => $failureCount]
     ]);
+    exit; // End execution here, skipping old file write logic
+
+    /* OLD LOGIC REMOVED */
 
 } catch (Exception $e) {
     http_response_code(500);
