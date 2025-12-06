@@ -24,6 +24,11 @@ curl_close($ch);
 $fsData = json_decode($fsResponse, true);
 $count = 0;
 
+if (isset($fsData['error'])) {
+    echo json_encode(['success' => false, 'error' => $fsData['error']]);
+    exit;
+}
+
 if (isset($fsData['documents'])) {
     $count = count($fsData['documents']);
 }
