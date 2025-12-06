@@ -17,6 +17,30 @@
     <title>🔮 2026 का तुम्हारा फ्यूचर | फ्री AI एस्ट्रो क्विज़</title>
     <meta name="description"
         content="2026 में क्या होगा? AI से पता करो तुम्हारा लव मैच, करियर, और पैसा! लिमिटेड रीडिंग - 24 घंटे!">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a237e">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "AstroQuiz",
+      "url": "https://astro-quiz-2026-52bxx.ondigitalocean.app",
+      "logo": "https://astro-quiz-2026-52bxx.ondigitalocean.app/icon.png",
+      "sameAs": [
+        "https://www.facebook.com/astroquiz",
+        "https://twitter.com/astroquiz",
+        "https://instagram.com/astroquiz"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-555-555-5555",
+        "contactType": "Consolation",
+        "areaServed": "IN",
+        "availableLanguage": ["en", "hi"]
+      }
+    }
+    </script>
+    <meta property="og:title" content="Astro Quiz 2026 - Future Predicitons">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://astro-quiz-2026-52bxx.ondigitalocean.app/">
     <link rel="stylesheet" href="css/style.css">
