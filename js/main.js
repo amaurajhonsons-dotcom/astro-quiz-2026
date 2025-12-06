@@ -38,13 +38,12 @@ function loadQuiz(quizId) {
     window.location.href = `quizzes/quiz.html?id=${quizId}`;
 }
 
-setTimeout(() => {
-    const popup = document.getElementById('pushPopup');
-    if (popup && !localStorage.getItem('pushAsked')) {
-        popup.classList.add('active');
-        localStorage.setItem('pushAsked', 'true');
-    }
-}, 10000);
+// [Legacy popup code removed to prevent double-prompting]
+
+// Safety check for mobile browsers
+if (!("Notification" in window)) {
+    console.log("Notifications not supported");
+}
 
 function closePushPopup() {
     const popup = document.getElementById('pushPopup');
@@ -132,6 +131,8 @@ async function saveTokenToFirestore(token) {
 
 // --- Soft Prompt Logic ---
 async function initSoftPrompt() {
+    if (!("Notification" in window)) return; // Prevent crash on unsupported browsers
+
     if (Notification.permission === "granted" || Notification.permission === "denied") {
         return; // Don't show if already decided
     }
