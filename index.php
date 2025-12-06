@@ -206,6 +206,23 @@
         </div>
     </div>
 
+    <!-- Latest Articles for SEO -->
+    <section class="container" style="margin-top: 40px; margin-bottom: 40px;">
+        <h2 class="section-title">📰 Latest Astro Reads</h2>
+        <div class="quiz-grid">
+            <div class="quiz-card" onclick="window.location.href='articles/love-horoscope-2026.html'">
+                <div class="quiz-icon">❤️</div>
+                <h3>2026 Love Horoscope</h3>
+                <p>क्या आपको मिलेगा सच्चा प्यार? Full Report.</p>
+            </div>
+            <div class="quiz-card" onclick="window.location.href='articles/money-career-2026.html'">
+                <div class="quiz-icon">💰</div>
+                <h3>Money & Career 2026</h3>
+                <p>क्या आप बनेंगे करोड़पति? जानें यहाँ।</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Adsterra Mobile Banner 320x50 -->
     <div style="text-align: center; margin: 40px 0; padding: 20px;">
         <p style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 10px;">SPONSORED</p>

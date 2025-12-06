@@ -2,8 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /subscribers/{token} {
-      allow create: if true;
-      allow read, update, delete: if false;
+      allow read, write: if true;
     }
   }
 }
