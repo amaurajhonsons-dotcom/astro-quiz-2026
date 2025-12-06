@@ -78,7 +78,7 @@ async function enablePushNotifications() {
                 const token = await messaging.getToken({ serviceWorkerRegistration: registration });
 
                 if (token) {
-                    await saveTokenToBackend(token);
+                    await saveTokenToFirestore(token);
                     alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
                 }
             } catch (err) {
