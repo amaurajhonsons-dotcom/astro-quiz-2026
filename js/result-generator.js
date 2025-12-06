@@ -16,14 +16,27 @@ const zodiacTraits = {
 function generateResult(quizId, answers) {
     const zodiac = answers[0];
     const zodiacInfo = zodiacTraits[zodiac];
-
     const score = Math.floor(Math.random() * 15) + 85;
+
+    // Get user data (name and birth date if available)
+    const userData = getUserData();
+    const birthDate = userData.birthDate || getDefaultBirthDate(zodiac);
+    const userName = userData.name || 'Friend';
+
+    // Generate personalized birth chart
+    const birthChart = AstroCalculator.getCompleteBirthChart(birthDate, userData.birthTime, userName);
+
+    // Generate personalized reading using new engine
+    const personalizedReading = PersonalizationEngine.generateCompleteReading(birthChart, score);
 
     let result = {
         title: '',
         score: score,
-        details: ''
+        details: '',
+        chart: birthChart,
+        personalized: personalizedReading
     };
+
 
     switch (quizId) {
         case 'love-match':
@@ -361,4 +374,27 @@ function generateMarriageResult(zodiacInfo, answers, score) {
             <p><strong>💡 टिप:</strong> ${zodiacInfo.color} रंग शादी की तैयारी में यूज़ करो - लकी रहेगा!</p>
         `
     };
+}
+
+// Helper functions for personalization
+function getUserData() {
+    const stored = localStorage.getItem('quizUserData');
+    if (stored) {
+        return JSON.parse(stored);
+    }
+    return { name: '', birthDate: null, birthTime: null };
+}
+
+function getDefaultBirthDate(zodiac) {
+    const zodiacDates = {
+        aries: '1995-04-01', taurus: '1995-05-01', gemini: '1995-06-01',
+        cancer: '1995-07-01', leo: '1995-08-01', virgo: '1995-09-01',
+        libra: '1995-10-01', scorpio: '1995-11-01', sagittarius: '1995-12-01',
+        capricorn: '1995-01-01', aquarius: '1995-02-01', pisces: '1995-03-01'
+    };
+    return zodiacDates[zodiac] || '1995-01-01';
+}
+
+function saveUserData(name, birthDate, birthTime) {
+    localStorage.setItem('quizUserData', JSON.stringify({ name, birthDate, birthTime }));
 }
