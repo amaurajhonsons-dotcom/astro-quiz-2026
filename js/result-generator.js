@@ -16,16 +16,16 @@ const zodiacTraits = {
 function generateResult(quizId, answers) {
     const zodiac = answers[0];
     const zodiacInfo = zodiacTraits[zodiac];
-    
+
     const score = Math.floor(Math.random() * 15) + 85;
-    
+
     let result = {
         title: '',
         score: score,
         details: ''
     };
-    
-    switch(quizId) {
+
+    switch (quizId) {
         case 'love-match':
             result = generateLoveMatchResult(zodiacInfo, answers, score);
             break;
@@ -53,7 +53,7 @@ function generateResult(quizId, answers) {
         default:
             result = generateLoveMatchResult(zodiacInfo, answers, score);
     }
-    
+
     return result;
 }
 
@@ -72,41 +72,158 @@ function generateLoveMatchResult(zodiacInfo, answers, score) {
         aquarius: 'मिथुन या तुला',
         pisces: 'कर्क या वृश्चिक'
     };
-    
+
+    // SHOCKING specific predictions
+    const firstLetters = ['A', 'S', 'R', 'M', 'P', 'K', 'V', 'N', 'D', 'T'];
+    const soulmateLetter = firstLetters[Math.floor(Math.random() * firstLetters.length)];
+
+    const specificDates = ['17 मार्च', '23 अप्रैल', '8 जून', '15 जुलाई', '3 सितंबर', '21 अक्टूबर', '11 नवंबर'];
+    const luckDate = specificDates[Math.floor(Math.random() * specificDates.length)];
+
+    const secrets = [
+        'तुमने किसी को दिल में छुपा रखा है जिसे तुम बताते नहीं',
+        'तुम्हारे पास एक secret admirer है जो तुम्हें देखता है',
+        'तुम जिसे चाहते हो वो भी secretly तुम्हें notice करता है',
+        'तुम्हारा कोई पुराना connection 2026 में वापस आएगा',
+        'तुम्हारी life में कोई है जो तुम्हें test कर रहा है'
+    ];
+    const revealedSecret = secrets[Math.floor(Math.random() * secrets.length)];
+
     const matchSign = compatibleSigns[answers[0]];
-    const months = ['मार्च-अप्रैल', 'जून-जुलाई', 'सितंबर-अक्टूबर', 'दिसंबर-जनवरी'];
-    const luckyMonth = months[Math.floor(Math.random() * months.length)];
-    
+
     return {
-        title: `तुम्हारा 2026 लव मैच: ${matchSign} राशि!`,
+        title: `🚨 SHOCKING: तुम्हारा Soulmate "${soulmateLetter}" से शुरू!`,
         score: score,
         details: `
-            <p><strong>🎯 परफेक्ट मैच:</strong> ${matchSign} राशि के लोग तुम्हारे लिए बेस्ट हैं!</p>
-            <p><strong>💘 लव सीजन:</strong> ${luckyMonth} 2026 में रोमांस पीक पर होगा</p>
-            <p><strong>✨ तुम्हारी स्ट्रेंथ:</strong> ${zodiacInfo.trait} - ये तुम्हारी खासियत है</p>
-            <p><strong>🔮 AI इनसाइट:</strong> 2026 में तुम्हें कोई स्पेशल मिलेगा जो तुम्हें पूरी तरह समझेगा। ${score > 90 ? 'तुम्हारे stars बहुत स्ट्रॉन्ग हैं!' : 'थोड़ा पेशेंस रखो, सब सही होगा!'}</p>
-            <p><strong>💡 टिप:</strong> लकी कलर ${zodiacInfo.color} पहनो पहली डेट पर!</p>
+            <div class="shocking-reveal">
+                <div class="reveal-box urgent">
+                    <span class="reveal-icon">💘</span>
+                    <div>
+                        <strong>SOULMATE का FIRST LETTER:</strong>
+                        <span class="big-reveal">"${soulmateLetter}"</span>
+                    </div>
+                </div>
+                
+                <div class="reveal-box">
+                    <span class="reveal-icon">📅</span>
+                    <div>
+                        <strong>LIFE CHANGING DATE:</strong>
+                        <span class="date-reveal">${luckDate} 2026</span>
+                        <small>इस दिन कुछ बड़ा होगा!</small>
+                    </div>
+                </div>
+                
+                <div class="reveal-box secret">
+                    <span class="reveal-icon">🔮</span>
+                    <div>
+                        <strong>AI ने तुम्हारा SECRET पकड़ा:</strong>
+                        <p class="secret-text">"${revealedSecret}"</p>
+                    </div>
+                </div>
+                
+                <div class="reveal-box">
+                    <span class="reveal-icon">❤️</span>
+                    <div>
+                        <strong>PERFECT MATCH:</strong> ${matchSign} राशि
+                    </div>
+                </div>
+                
+                <div class="reveal-box tip">
+                    <span class="reveal-icon">💡</span>
+                    <div>
+                        <strong>SECRET TIP:</strong> ${zodiacInfo.color} रंग पहनो - attraction बढ़ेगा!
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                .shocking-reveal { display: flex; flex-direction: column; gap: 12px; }
+                .reveal-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; display: flex; align-items: flex-start; gap: 12px; }
+                .reveal-box.urgent { background: linear-gradient(135deg, rgba(255,0,100,0.2), rgba(255,100,0,0.1)); border: 1px solid rgba(255,100,100,0.3); animation: pulse 2s infinite; }
+                .reveal-box.secret { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.1)); border: 1px solid rgba(139,92,246,0.3); }
+                .reveal-box.tip { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(16,185,129,0.1)); }
+                .reveal-icon { font-size: 1.5rem; }
+                .big-reveal { font-size: 2rem; font-weight: 800; color: #FF6B6B; display: block; }
+                .date-reveal { font-size: 1.3rem; font-weight: 700; color: #FFD700; display: block; }
+                .secret-text { font-style: italic; color: #D8B4FE; margin: 5px 0 0 0; }
+                @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+            </style>
         `
     };
 }
 
 function generateMoneyLuckResult(zodiacInfo, answers, score) {
-    const amounts = ['₹5-8 लाख', '₹10-15 लाख', '₹20-25 लाख', '₹30+ लाख'];
-    const amount = amounts[Math.floor(Math.random() * amounts.length)];
-    
-    const sources = ['बिजनेस ग्रोथ', 'जॉब प्रमोशन', 'इन्वेस्टमेंट रिटर्न', 'साइड हसल'];
-    const source = sources[Math.floor(Math.random() * sources.length)];
-    
+    // Super specific amounts
+    const exactAmounts = ['₹4,73,000', '₹7,21,000', '₹12,45,000', '₹18,90,000', '₹25,60,000'];
+    const amount = exactAmounts[Math.floor(Math.random() * exactAmounts.length)];
+
+    // Specific dates
+    const specificDates = ['14 फरवरी', '7 मार्च', '22 मई', '11 अगस्त', '3 अक्टूबर', '19 दिसंबर'];
+    const bigMoneyDate = specificDates[Math.floor(Math.random() * specificDates.length)];
+
+    // Warning
+    const warnings = [
+        'अप्रैल में किसी करीबी से पैसे मत लेना - धोखा हो सकता है',
+        'जून-जुलाई में कोई investment offer आएगा - वो SCAM है',
+        'सितंबर में कोई पुराना दोस्त पैसे मांगेगा - देने से पहले सोचो',
+        'नवंबर में एक बड़ा लालच आएगा - उससे बचना'
+    ];
+    const warning = warnings[Math.floor(Math.random() * warnings.length)];
+
+    const luckyNumber = Math.floor(Math.random() * 9) + 1;
+    const luckyNumber2 = Math.floor(Math.random() * 9) + 1;
+
     return {
-        title: `2026 में तुम्हें मिल सकते हैं ${amount}!`,
+        title: `💰 ALERT: ${bigMoneyDate} को आएगा ${amount}!`,
         score: score,
         details: `
-            <p><strong>💰 मनी पोटेंशियल:</strong> ${amount} तक की इनकम बूस्ट!</p>
-            <p><strong>📈 सोर्स:</strong> ${source} से पैसे आएंगे</p>
-            <p><strong>🍀 लकी नंबर:</strong> ${zodiacInfo.lucky} - इसे यूज़ करो (OTP, पिन, आदि)</p>
-            <p><strong>🔮 AI इनसाइट:</strong> ${zodiacInfo.element} तत्व की वजह से तुम्हारी फाइनेंशियल एनर्जी ${score > 90 ? 'बहुत स्ट्रॉन्ग' : 'गुड'} है। Q2 या Q3 2026 में बड़ा चांस आएगा!</p>
-            <p><strong>💡 टिप:</strong> ${zodiacInfo.color} रंग का वॉलेट यूज़ करो लकी के लिए!</p>
-            <p><strong>⚠️ अलर्ट:</strong> इम्पल्सिव खर्च से बचो - बजट बनाओ!</p>
+            <div class="shocking-reveal">
+                <div class="reveal-box urgent">
+                    <span class="reveal-icon">💸</span>
+                    <div>
+                        <strong>BIG MONEY DATE:</strong>
+                        <span class="date-reveal">${bigMoneyDate} 2026</span>
+                        <span class="big-reveal">${amount}</span>
+                    </div>
+                </div>
+                
+                <div class="reveal-box">
+                    <span class="reveal-icon">🎰</span>
+                    <div>
+                        <strong>LUCKY NUMBERS:</strong>
+                        <span class="big-reveal" style="color: #22C55E;">${luckyNumber}, ${luckyNumber2}, ${luckyNumber + luckyNumber2}</span>
+                        <small>OTP, PIN, या बेट में इस्तेमाल करो</small>
+                    </div>
+                </div>
+                
+                <div class="reveal-box secret" style="border-color: #EF4444;">
+                    <span class="reveal-icon">⚠️</span>
+                    <div>
+                        <strong style="color: #EF4444;">DANGER ALERT:</strong>
+                        <p class="secret-text" style="color: #FCA5A5;">"${warning}"</p>
+                    </div>
+                </div>
+                
+                <div class="reveal-box tip">
+                    <span class="reveal-icon">🍀</span>
+                    <div>
+                        <strong>MONEY TIP:</strong> ${zodiacInfo.color} रंग का wallet रखो - पैसा attract होगा!
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                .shocking-reveal { display: flex; flex-direction: column; gap: 12px; }
+                .reveal-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; display: flex; align-items: flex-start; gap: 12px; }
+                .reveal-box.urgent { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(16,185,129,0.1)); border: 1px solid rgba(34,197,94,0.3); animation: pulse 2s infinite; }
+                .reveal-box.secret { background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(220,38,38,0.1)); }
+                .reveal-box.tip { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(245,158,11,0.1)); }
+                .reveal-icon { font-size: 1.5rem; }
+                .big-reveal { font-size: 1.8rem; font-weight: 800; color: #22C55E; display: block; }
+                .date-reveal { font-size: 1.2rem; font-weight: 600; color: #FFD700; display: block; margin-bottom: 5px; }
+                .secret-text { font-style: italic; margin: 5px 0 0 0; }
+                @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+            </style>
         `
     };
 }
@@ -114,7 +231,7 @@ function generateMoneyLuckResult(zodiacInfo, answers, score) {
 function generateCareerResult(zodiacInfo, answers, score) {
     const achievements = ['प्रमोशन', 'बेस्ट जॉब ऑफर', 'सक्सेसफुल प्रोजेक्ट', 'रिकग्निशन/अवॉर्ड'];
     const achievement = achievements[Math.floor(Math.random() * achievements.length)];
-    
+
     return {
         title: `2026 करियर ब्रेकथ्रू: ${achievement} आ रहा है!`,
         score: score,
@@ -132,7 +249,7 @@ function generateCareerResult(zodiacInfo, answers, score) {
 function generateHealthResult(zodiacInfo, answers, score) {
     const focuses = ['डाइजेशन', 'इम्युनिटी', 'मेंटल हेल्थ', 'एनर्जी लेवल'];
     const focus = focuses[Math.floor(Math.random() * focuses.length)];
-    
+
     return {
         title: `2026 हेल्थ स्कोर: ${score}/100 - ${focus} पर ध्यान दो!`,
         score: score,
@@ -153,11 +270,11 @@ function generateLuckyMonthResult(zodiacInfo, answers, score) {
         'सितंबर 2026', 'अक्टूबर 2026', 'दिसंबर 2026'
     ];
     const luckyMonth = months[Math.floor(Math.random() * months.length)];
-    
+
     const events = ['प्रमोशन', 'न्यू रिलेशनशिप', 'बड़ा पैसा', 'ट्रैवल', 'सक्सेस'];
     const event1 = events[Math.floor(Math.random() * events.length)];
     const event2 = events.filter(e => e !== event1)[Math.floor(Math.random() * (events.length - 1))];
-    
+
     return {
         title: `तुम्हारा सबसे लकी मंथ: ${luckyMonth}!`,
         score: score,
@@ -175,10 +292,10 @@ function generateLuckyMonthResult(zodiacInfo, answers, score) {
 function generateFriendEnemyResult(zodiacInfo, answers, score) {
     const friendSigns = ['मेष', 'वृषभ', 'मिथुन', 'सिंह', 'तुला', 'धनु'];
     const enemySigns = ['कर्क', 'कन्या', 'वृश्चिक', 'मकर'];
-    
+
     const friend = friendSigns[Math.floor(Math.random() * friendSigns.length)];
     const enemy = enemySigns[Math.floor(Math.random() * enemySigns.length)];
-    
+
     return {
         title: `2026 सोशल मैप: फ्रेंड्स vs एनेमीज़`,
         score: score,
@@ -198,10 +315,10 @@ function generateTravelResult(zodiacInfo, answers, score) {
         india: ['गोवा', 'केरल', 'मनाली', 'उदयपुर', 'लद्दाख', 'अंडमान'],
         international: ['बाली', 'दुबई', 'थाईलैंड', 'सिंगापुर', 'मालदीव', 'पेरिस']
     };
-    
+
     const destType = Math.random() > 0.5 ? 'india' : 'international';
     const destination = destinations[destType][Math.floor(Math.random() * destinations[destType].length)];
-    
+
     return {
         title: `2026 ट्रैवल डेस्टिनी: ${destination} जाओगे!`,
         score: score,
@@ -220,7 +337,7 @@ function generateMarriageResult(zodiacInfo, answers, score) {
     const relationshipStatus = answers[2];
     let timeline = '';
     let probability = '';
-    
+
     if (relationshipStatus === 'single') {
         timeline = 'Q4 2026 या 2027 में';
         probability = '60-70%';
@@ -231,7 +348,7 @@ function generateMarriageResult(zodiacInfo, answers, score) {
         timeline = 'Q1 2026 में पक्का!';
         probability = '95%+';
     }
-    
+
     return {
         title: `2026 शादी प्रेडिक्शन: ${timeline}`,
         score: score,

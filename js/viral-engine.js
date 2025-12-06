@@ -168,13 +168,30 @@ const ViralEngine = {
 
     shareWhatsAppViral(score) {
         const link = `https://astro-quiz-2026-52bxx.ondigitalocean.app/?ref=${this.data.referralCode}`;
+
+        // More compelling challenge-based messages
         const msgs = [
-            `🔮 *मेरा 2026 का सीक्रेट निकला!* ${score}%\n\n😱 क्या तुम भी जानना चाहोगे?\n👉 ${link}`,
-            `⚡ *SHOCKING!* AI ने मेरा फ्यूचर बता दिया!\n\n🔥 तुम्हारी बारी...\n👉 ${link}`,
-            `💫 मेरा 2026 prediction: ${score}% accurate!\n\n🤯 तुम्हारा क्या निकलेगा?\n👉 ${link}`
+            `🚨 *SHOCKING!* AI ने मेरा 2026 का SECRET बता दिया!\n\n💘 Soulmate का नाम "${this.getRandomLetter()}" से शुरू होगा!\n📅 ${this.getRandomDate()} को life change होगी!\n\n😱 *तेरा क्या निकलेगा? चेक कर:*\n👉 ${link}`,
+
+            `🔮 *मेरा 2026 EXPOSED!*\n\n💰 ₹${Math.floor(Math.random() * 20 + 5)},00,000 आएंगे!\n⚠️ एक WARNING भी मिली जो मैं बता नहीं सकता...\n\n*तू भी देख अपना:*\n👉 ${link}`,
+
+            `⚡ *CHALLENGE!* मेरा score ${score}% आया!\n\n🎯 AI ने मेरे बारे में ऐसी बात बताई जो सिर्फ मुझे पता थी 😳\n\n*तेरा कितना आएगा? BET लगा:*\n👉 ${link}`,
+
+            `😱 *ये Quiz REAL है भाई!*\n\nAI ने बताया:\n💘 मेरा soulmate "${this.getRandomLetter()}" नाम का है\n📅 ${this.getRandomDate()} important date है\n\n*अपना future देख:*\n👉 ${link}`
         ];
+
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msgs[Math.floor(Math.random() * msgs.length)])}`, '_blank');
         this.trackShare('whatsapp');
+    },
+
+    getRandomLetter() {
+        const letters = ['A', 'S', 'R', 'M', 'P', 'K', 'V', 'N', 'D', 'T'];
+        return letters[Math.floor(Math.random() * letters.length)];
+    },
+
+    getRandomDate() {
+        const dates = ['17 March', '23 April', '8 June', '15 July', '3 September', '21 October'];
+        return dates[Math.floor(Math.random() * dates.length)];
     },
 
     checkReferral() {
