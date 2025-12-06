@@ -231,7 +231,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=3.0"></script>
+    <script src="js/main.js?v=4.0"></script>
     <script src="js/quiz-engine.js"></script>
     <script src="js/viral-hooks.js"></script>
 </body>

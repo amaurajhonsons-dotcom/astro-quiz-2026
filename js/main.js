@@ -66,22 +66,24 @@ async function enablePushNotifications() {
         const newPermission = await Notification.requestPermission();
 
         if (newPermission === "granted") {
-            // Register Service Worker explicitly to avoid "no active Service Worker" error
-            let registration;
             try {
-                registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-                console.log("Service Worker Registered", registration);
+                // Robust Service Worker Registration
+                const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+                console.log("SW Registered:", registration);
+
+                // Wait for it to be ready/active
+                await waitForActiveSW(registration);
+
+                // Get Token
+                const token = await messaging.getToken({ serviceWorkerRegistration: registration });
+
+                if (token) {
+                    await saveTokenToBackend(token);
+                    alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
+                }
             } catch (err) {
-                console.error("Service Worker Registration Failed", err);
-                return alert("System Error: SW Failed");
-            }
-
-            // Get Token with Service Worker Registration
-            const token = await messaging.getToken({ serviceWorkerRegistration: registration });
-
-            if (token) {
-                await saveTokenToBackend(token);
-                alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
+                console.error("SW/Token Error:", err);
+                alert("Error: " + err.message);
             }
         } else {
             alert("❌ Notification Blocked. Please reset permissions.");
@@ -90,6 +92,25 @@ async function enablePushNotifications() {
         console.error(e);
         alert("Error: " + e.message);
     }
+}
+
+// Helper: Wait for SW to be active
+function waitForActiveSW(reg) {
+    return new Promise((resolve) => {
+        if (reg.active) {
+            resolve(reg);
+            return;
+        }
+        const sw = reg.installing || reg.waiting;
+        if (!sw) {
+            // Should be rare, assume ready if nothing installing/waiting
+            resolve(reg);
+            return;
+        }
+        sw.addEventListener('statechange', () => {
+            if (sw.state === 'activated') resolve(reg);
+        });
+    });
 }
 
 async function saveTokenToBackend(token) {
