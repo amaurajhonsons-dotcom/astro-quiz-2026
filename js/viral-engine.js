@@ -1,164 +1,194 @@
 /**
- * Viral Growth Engine - Share-to-Unlock Mechanism
- * Triggers chain sharing via WhatsApp
+ * Viral Growth Engine v2.0 - Multi-Path Unlock Strategy
+ * Path A: Share (Primary)
+ * Path B: Enable Push Notifications (Secondary)
+ * Path C: Watch Timer (Fallback)
+ * FOMO: Live unlock counter
  */
 
 const ViralEngine = {
     REQUIRED_SHARES: 3,
+    TIMER_SECONDS: 45,
     STORAGE_KEY: 'astro_viral_data',
 
-    // Initialize
     init() {
         this.data = this.loadData();
         this.updateUI();
+        this.startFOMOCounter();
+        if (!this.data.unlocked) {
+            this.startTimer();
+        }
     },
 
-    // Load from localStorage
     loadData() {
         const stored = localStorage.getItem(this.STORAGE_KEY);
         return stored ? JSON.parse(stored) : {
             shareCount: 0,
             unlocked: false,
             referralCode: this.generateReferralCode(),
-            lastShare: null
+            notificationsEnabled: false,
+            timerCompleted: false
         };
     },
 
-    // Save to localStorage
     saveData() {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.data));
     },
 
-    // Generate unique referral code
     generateReferralCode() {
         return 'AQ' + Math.random().toString(36).substring(2, 8).toUpperCase();
     },
 
-    // Track share action
+    // PATH A: Share tracking
     trackShare(platform) {
         this.data.shareCount++;
-        this.data.lastShare = Date.now();
         this.saveData();
-        this.updateUI();
+        this.updateShareCount();
 
-        // Check if unlocked
-        if (this.data.shareCount >= this.REQUIRED_SHARES && !this.data.unlocked) {
-            this.unlockFullResult();
+        if (this.data.shareCount >= this.REQUIRED_SHARES) {
+            this.unlock('share');
         }
 
-        // Analytics
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'share', {
-                'event_category': 'viral',
-                'event_label': platform,
-                'value': this.data.shareCount
-            });
+        gtag?.('event', 'share', { event_category: 'viral', event_label: platform });
+    },
+
+    // PATH B: Push Notifications unlock
+    async unlockWithNotifications() {
+        if (typeof enablePushNotifications === 'function') {
+            await enablePushNotifications();
+            // Check if permission granted
+            if (Notification.permission === 'granted') {
+                this.data.notificationsEnabled = true;
+                this.saveData();
+                this.unlock('notifications');
+            }
         }
     },
 
-    // Update UI elements
-    updateUI() {
-        // Update referral progress bar
-        const fill = document.getElementById('referralFill');
-        const count = document.getElementById('referralCount');
+    // PATH C: Timer unlock (partial)
+    startTimer() {
+        let remaining = this.TIMER_SECONDS;
+        const timerEl = document.getElementById('unlockTimer');
+        const timerBtn = document.getElementById('timerUnlockBtn');
 
-        if (fill && count) {
-            const percentage = Math.min((this.data.shareCount / this.REQUIRED_SHARES) * 100, 100);
-            fill.style.width = percentage + '%';
-            count.textContent = this.data.shareCount;
-        }
+        if (!timerEl) return;
 
-        // Show/hide lock overlay
-        const lockOverlay = document.getElementById('viralLockOverlay');
-        if (lockOverlay) {
-            lockOverlay.style.display = this.data.unlocked ? 'none' : 'flex';
-        }
+        const interval = setInterval(() => {
+            remaining--;
+            timerEl.textContent = remaining;
 
-        // Show/hide full result
-        const fullResult = document.getElementById('fullResultSection');
-        if (fullResult) {
-            fullResult.style.display = this.data.unlocked ? 'block' : 'none';
+            if (remaining <= 0) {
+                clearInterval(interval);
+                this.data.timerCompleted = true;
+                this.saveData();
+                if (timerBtn) {
+                    timerBtn.disabled = false;
+                    timerBtn.textContent = '🎁 अभी देखो!';
+                    timerBtn.classList.add('ready');
+                }
+            }
+        }, 1000);
+    },
+
+    timerUnlock() {
+        if (this.data.timerCompleted) {
+            this.unlock('timer');
         }
     },
 
-    // Unlock full result with animation
-    unlockFullResult() {
+    // FOMO: Fake live counter
+    startFOMOCounter() {
+        const counter = document.getElementById('fomoCounter');
+        if (!counter) return;
+
+        let count = 1247 + Math.floor(Math.random() * 100);
+        counter.textContent = count.toLocaleString();
+
+        setInterval(() => {
+            count += Math.floor(Math.random() * 3) + 1;
+            counter.textContent = count.toLocaleString();
+        }, 3000 + Math.random() * 2000);
+    },
+
+    // Universal unlock
+    unlock(method) {
         this.data.unlocked = true;
         this.saveData();
 
-        const lockOverlay = document.getElementById('viralLockOverlay');
-        if (lockOverlay) {
-            lockOverlay.classList.add('unlocking');
+        const overlay = document.getElementById('viralLockOverlay');
+        if (overlay) {
+            overlay.classList.add('unlocking');
             setTimeout(() => {
-                lockOverlay.style.display = 'none';
+                overlay.style.display = 'none';
                 document.getElementById('fullResultSection').style.display = 'block';
                 this.showConfetti();
-            }, 1000);
+            }, 800);
+        }
+
+        gtag?.('event', 'unlock', { event_category: 'viral', event_label: method });
+    },
+
+    showConfetti() {
+        const el = document.createElement('div');
+        el.innerHTML = '🎉🎊✨🌟💫';
+        el.style.cssText = `position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:4rem;z-index:9999;animation:confettiBurst 1.5s ease-out forwards;`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1500);
+    },
+
+    updateUI() {
+        const overlay = document.getElementById('viralLockOverlay');
+        const fullResult = document.getElementById('fullResultSection');
+
+        if (this.data.unlocked) {
+            if (overlay) overlay.style.display = 'none';
+            if (fullResult) fullResult.style.display = 'block';
         }
     },
 
-    // Confetti celebration
-    showConfetti() {
-        const confettiContainer = document.createElement('div');
-        confettiContainer.id = 'confetti';
-        confettiContainer.innerHTML = '🎉🎊✨🌟💫';
-        confettiContainer.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            z-index: 9999;
-            animation: confettiBurst 1.5s ease-out forwards;
-        `;
-        document.body.appendChild(confettiContainer);
-        setTimeout(() => confettiContainer.remove(), 1500);
+    updateShareCount() {
+        const el = document.getElementById('lockShareCount');
+        if (el) el.textContent = this.data.shareCount;
     },
 
-    // WhatsApp share with viral message
-    shareWhatsAppViral(quizResult) {
-        const referralLink = `https://astro-quiz-2026-52bxx.ondigitalocean.app/?ref=${this.data.referralCode}`;
-        const messages = [
-            `🔮 *मेरा 2026 का सीक्रेट निकला!* ${quizResult}%\n\n😱 क्या तुम भी जानना चाहोगे?\n👉 ${referralLink}`,
-            `⚡ *SHOCKING!* मेरी 2026 की prediction देखो!\n\n🔥 तुम्हारा क्या निकलेगा?\n👉 ${referralLink}`,
-            `💫 *AI ने मेरा फ्यूचर बता दिया!*\n\n🤯 अब तुम्हारी बारी...\n👉 ${referralLink}`
+    shareWhatsAppViral(score) {
+        const link = `https://astro-quiz-2026-52bxx.ondigitalocean.app/?ref=${this.data.referralCode}`;
+        const msgs = [
+            `🔮 *मेरा 2026 का सीक्रेट निकला!* ${score}%\n\n😱 क्या तुम भी जानना चाहोगे?\n👉 ${link}`,
+            `⚡ *SHOCKING!* AI ने मेरा फ्यूचर बता दिया!\n\n🔥 तुम्हारी बारी...\n👉 ${link}`,
+            `💫 मेरा 2026 prediction: ${score}% accurate!\n\n🤯 तुम्हारा क्या निकलेगा?\n👉 ${link}`
         ];
-        const message = messages[Math.floor(Math.random() * messages.length)];
-        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-
-        window.open(url, '_blank');
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msgs[Math.floor(Math.random() * msgs.length)])}`, '_blank');
         this.trackShare('whatsapp');
     },
 
-    // Check referral on page load
     checkReferral() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const ref = urlParams.get('ref');
-        if (ref) {
-            // Track referral visit
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'referral_visit', {
-                    'event_category': 'viral',
-                    'event_label': ref
-                });
-            }
-        }
+        const ref = new URLSearchParams(window.location.search).get('ref');
+        if (ref) gtag?.('event', 'referral_visit', { event_category: 'viral', event_label: ref });
     }
 };
 
-// Auto-init on page load
+// Init
 document.addEventListener('DOMContentLoaded', () => {
     ViralEngine.init();
     ViralEngine.checkReferral();
 });
 
-// Global function for button onclick
+// Global functions
 function shareWhatsAppViral() {
     const score = document.getElementById('resultScore')?.textContent || '95';
     ViralEngine.shareWhatsAppViral(score);
 }
 
-// Add confetti animation CSS
+function unlockWithNotifications() {
+    ViralEngine.unlockWithNotifications();
+}
+
+function timerUnlock() {
+    ViralEngine.timerUnlock();
+}
+
+// Inject CSS
 const style = document.createElement('style');
 style.textContent = `
     @keyframes confettiBurst {
@@ -166,74 +196,42 @@ style.textContent = `
         50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
         100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
     }
-    
-    .unlocking {
-        animation: unlockPulse 1s ease-out forwards;
-    }
-    
+    .unlocking { animation: unlockPulse 0.8s ease-out forwards; }
     @keyframes unlockPulse {
         0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.1); opacity: 0.5; }
         100% { transform: scale(0); opacity: 0; }
     }
-    
     #viralLockOverlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(15, 23, 42, 0.95);
+        position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(88,28,135,0.95));
         backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 100;
-        border-radius: 20px;
-        padding: 30px;
-        text-align: center;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        z-index: 100; border-radius: 20px; padding: 25px; text-align: center;
     }
-    
-    .lock-icon {
-        font-size: 4rem;
-        margin-bottom: 20px;
-        animation: shake 0.5s infinite;
-    }
-    
-    @keyframes shake {
-        0%, 100% { transform: rotate(-5deg); }
-        50% { transform: rotate(5deg); }
-    }
-    
+    .lock-icon { font-size: 3.5rem; margin-bottom: 15px; animation: shake 0.5s infinite; }
+    @keyframes shake { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
     .viral-share-btn {
         background: linear-gradient(135deg, #25D366, #128C7E);
-        color: white;
-        border: none;
-        padding: 18px 40px;
-        border-radius: 50px;
-        font-size: 1.2rem;
-        font-weight: 700;
-        cursor: pointer;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-        animation: pulse 2s infinite;
+        color: white; border: none; padding: 16px 35px; border-radius: 50px;
+        font-size: 1.1rem; font-weight: 700; cursor: pointer; margin: 8px 0;
+        display: flex; align-items: center; gap: 10px;
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
     }
-    
-    .lock-text {
-        color: #FFD700;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 10px;
+    .notification-btn {
+        background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+        color: white; border: none; padding: 14px 30px; border-radius: 50px;
+        font-size: 1rem; font-weight: 600; cursor: pointer; margin: 8px 0;
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
     }
-    
-    .lock-subtext {
-        color: #CBD5E1;
-        font-size: 1rem;
-        max-width: 300px;
+    .timer-btn {
+        background: rgba(255,255,255,0.1); color: #94A3B8;
+        border: 1px solid rgba(255,255,255,0.2); padding: 12px 25px;
+        border-radius: 50px; font-size: 0.9rem; cursor: not-allowed; margin-top: 15px;
     }
+    .timer-btn.ready { background: #F59E0B; color: #78350F; cursor: pointer; border: none; }
+    .lock-text { color: #FFD700; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .lock-subtext { color: #CBD5E1; font-size: 0.95rem; max-width: 280px; margin-bottom: 15px; }
+    .fomo-text { color: #34D399; font-size: 0.85rem; margin-top: 12px; }
+    .or-divider { color: #64748B; margin: 10px 0; font-size: 0.85rem; }
 `;
 document.head.appendChild(style);
