@@ -66,7 +66,19 @@ async function enablePushNotifications() {
         const newPermission = await Notification.requestPermission();
 
         if (newPermission === "granted") {
-            const token = await messaging.getToken();
+            // Register Service Worker explicitly to avoid "no active Service Worker" error
+            let registration;
+            try {
+                registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+                console.log("Service Worker Registered", registration);
+            } catch (err) {
+                console.error("Service Worker Registration Failed", err);
+                return alert("System Error: SW Failed");
+            }
+
+            // Get Token with Service Worker Registration
+            const token = await messaging.getToken({ serviceWorkerRegistration: registration });
+
             if (token) {
                 await saveTokenToBackend(token);
                 alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
