@@ -7,7 +7,7 @@
  */
 
 const ViralEngine = {
-    REQUIRED_SHARES: 3,
+    REQUIRED_SHARES: 2,
     TIMER_SECONDS: 45,
     STORAGE_KEY: 'astro_viral_data',
 
@@ -15,6 +15,10 @@ const ViralEngine = {
         this.data = this.loadData();
         this.updateUI();
         this.startFOMOCounter();
+        this.startLiveViewers();
+        this.startTodayCounter();
+        this.startExpiryTimer();
+        this.populateZodiacBadge();
         if (!this.data.unlocked) {
             this.startTimer();
         }
@@ -120,24 +124,117 @@ const ViralEngine = {
         }, 3000 + Math.random() * 2000);
     },
 
+    // Psychology: Live viewers counter
+    startLiveViewers() {
+        const el = document.getElementById('liveViewers');
+        if (!el) return;
+
+        let viewers = 200 + Math.floor(Math.random() * 600);
+        el.textContent = viewers;
+
+        setInterval(() => {
+            viewers += Math.floor(Math.random() * 11) - 5; // fluctuate +/- 5
+            viewers = Math.max(150, Math.min(999, viewers)); // keep between 150-999
+            el.textContent = viewers;
+        }, 2000 + Math.random() * 3000);
+    },
+
+    // Psychology: Today's count
+    startTodayCounter() {
+        const el = document.getElementById('todayCount');
+        if (!el) return;
+
+        const base = 8000 + Math.floor(Math.random() * 5000);
+        el.textContent = base.toLocaleString();
+
+        setInterval(() => {
+            const current = parseInt(el.textContent.replace(/,/g, '')) + Math.floor(Math.random() * 5) + 1;
+            el.textContent = current.toLocaleString();
+        }, 4000 + Math.random() * 3000);
+    },
+
+    // Psychology: Expiry timer (24 hour countdown)
+    startExpiryTimer() {
+        const el = document.getElementById('expiryTime');
+        if (!el) return;
+
+        // Calculate time until midnight
+        const now = new Date();
+        const midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        let remaining = Math.floor((midnight - now) / 1000);
+
+        const updateTimer = () => {
+            const h = Math.floor(remaining / 3600);
+            const m = Math.floor((remaining % 3600) / 60);
+            const s = remaining % 60;
+            el.textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            remaining--;
+            if (remaining < 0) remaining = 86400; // reset to 24 hours
+        };
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    },
+
+    // Psychology: Zodiac badge personalization
+    populateZodiacBadge() {
+        const badge = document.getElementById('zodiacBadge');
+        const element = document.getElementById('elementReveal');
+        if (!badge) return;
+
+        // Get zodiac from URL or localStorage
+        const zodiacSymbols = {
+            aries: '♈', taurus: '♉', gemini: '♊', cancer: '♋',
+            leo: '♌', virgo: '♍', libra: '♎', scorpio: '♏',
+            sagittarius: '♐', capricorn: '♑', aquarius: '♒', pisces: '♓'
+        };
+
+        const elements = {
+            aries: 'Fire 🔥', taurus: 'Earth 🌍', gemini: 'Air 💨', cancer: 'Water 💧',
+            leo: 'Fire 🔥', virgo: 'Earth 🌍', libra: 'Air 💨', scorpio: 'Water 💧',
+            sagittarius: 'Fire 🔥', capricorn: 'Earth 🌍', aquarius: 'Air 💨', pisces: 'Water 💧'
+        };
+
+        // Try to get from recent quiz data
+        const stored = localStorage.getItem('lastZodiac');
+        if (stored && zodiacSymbols[stored]) {
+            badge.textContent = zodiacSymbols[stored];
+            if (element) element.textContent = elements[stored];
+        }
+    },
+
+
     // Universal unlock
     unlock(method) {
         this.data.unlocked = true;
         this.saveData();
 
-        const overlay = document.getElementById('viralLockOverlay');
-        const blurredTeaser = document.getElementById('blurredTeaser');
+        // Hide locked sections, show full result
+        const elementsToHide = ['reveal-preview', 'unlock-section', 'urgency-box'];
+        elementsToHide.forEach(cls => {
+            const el = document.querySelector('.' + cls);
+            if (el) el.style.display = 'none';
+        });
 
-        if (overlay) {
-            overlay.classList.add('unlocking');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                if (blurredTeaser) blurredTeaser.style.display = 'none';
-                document.getElementById('fullResultSection').style.display = 'block';
-                this.showConfetti();
-            }, 800);
+        // Update locked items to unlocked
+        document.querySelectorAll('.reveal-item.locked').forEach(item => {
+            item.classList.remove('locked');
+            item.classList.add('unlocked');
+            const status = item.querySelector('.reveal-status');
+            if (status) status.textContent = '✅';
+            const blur = item.querySelector('.blur-text');
+            if (blur) blur.style.filter = 'none';
+        });
+
+        // Show full result section
+        const fullResult = document.getElementById('fullResultSection');
+        if (fullResult) {
+            fullResult.style.display = 'block';
+            fullResult.style.animation = 'fadeIn 0.5s ease';
         }
 
+        this.showConfetti();
         gtag?.('event', 'unlock', { event_category: 'viral', event_label: method });
     },
 

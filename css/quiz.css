@@ -149,7 +149,8 @@
     cursor: not-allowed;
 }
 
-.loading-screen, .result-screen {
+.loading-screen,
+.result-screen {
     padding: 60px 30px;
     text-align: center;
 }
@@ -176,7 +177,9 @@
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .result-content {
@@ -403,24 +406,349 @@
     font-size: 14px;
 }
 
+/* ========== PSYCHOLOGY-BASED RESULT STYLES ========== */
+
+/* Trust Bar */
+.trust-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #64748B;
+}
+
+.trust-item.live {
+    color: #10B981;
+    font-weight: 600;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background: #10B981;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Social Proof Banner */
+.social-proof-banner {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #92400E;
+    margin-bottom: 20px;
+}
+
+.proof-number {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* Personalized Header */
+.personalized-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.zodiac-badge {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #8B5CF6, #EC4899);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 15px;
+    box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+}
+
+.result-main-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 5px;
+}
+
+.generated-text {
+    font-size: 12px;
+    color: #94A3B8;
+}
+
+/* Score Section */
+.score-section {
+    text-align: center;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.score-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.score-circle-wrapper {
+    margin-bottom: 15px;
+}
+
+.score-comparison {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.your-score {
+    color: #10B981;
+}
+
+.avg-score {
+    color: #94A3B8;
+}
+
+.score-verdict {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFD700;
+}
+
+/* Progressive Reveal */
+.reveal-preview {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.reveal-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+}
+
+.reveal-item:last-child {
+    border-bottom: none;
+}
+
+.reveal-item.unlocked {
+    color: #D1FAE5;
+}
+
+.reveal-item.locked {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.reveal-item.locked.critical {
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    border-bottom: none;
+    margin: 5px 0;
+}
+
+.reveal-item.locked.warning {
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 8px;
+    border-bottom: none;
+}
+
+.reveal-status {
+    font-size: 16px;
+}
+
+.blur-text {
+    filter: blur(4px);
+    user-select: none;
+}
+
+/* Urgency Box */
+.urgency-box {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+.urgency-icon {
+    font-size: 20px;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.9;
+        transform: scale(1.01);
+    }
+}
+
+/* Unlock Section */
+.unlock-section {
+    text-align: center;
+}
+
+.unlock-reason {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.share-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
+}
+
+.share-count {
+    font-size: 13px;
+    color: #10B981;
+    margin: 10px 0 20px;
+}
+
+.alt-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.viral-share-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E) !important;
+    color: white !important;
+    border: none !important;
+    padding: 16px 30px !important;
+    border-radius: 50px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4) !important;
+    width: auto !important;
+    transition: all 0.3s ease !important;
+}
+
+.viral-share-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5) !important;
+}
+
+.notification-btn {
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.timer-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #94A3B8;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    cursor: not-allowed;
+}
+
+.timer-btn.ready {
+    background: #F59E0B;
+    color: #78350F;
+    cursor: pointer;
+    border: none;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .quiz-title {
         font-size: 24px;
     }
-    
+
     .question-text {
         font-size: 20px;
     }
-    
+
     .options-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .result-card {
-        padding: 30px 20px;
+        padding: 25px 15px;
     }
-    
+
     .share-buttons {
         grid-template-columns: 1fr;
+    }
+
+    .trust-bar {
+        gap: 10px;
+        font-size: 10px;
+    }
+
+    .result-main-title {
+        font-size: 18px;
+    }
+
+    .reveal-item {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .alt-options {
+        flex-direction: column;
+    }
+
+    .notification-btn,
+    .timer-btn {
+        width: 100%;
     }
 }

@@ -95,64 +95,104 @@
 
     <div class="result-screen" id="resultScreen" style="display:none;">
       <div class="result-content">
-        <div class="result-badge pulse">🎯 तुम्हारा रिजल्ट!</div>
 
+        <!-- TRUST SIGNALS BAR -->
+        <div class="trust-bar">
+          <div class="trust-item">
+            <span class="trust-icon">🔬</span>
+            <span>Vedic AI + NASA Data</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🔒</span>
+            <span>100% Private</span>
+          </div>
+          <div class="trust-item live">
+            <span class="live-dot"></span>
+            <span id="liveViewers">847</span> देख रहे हैं
+          </div>
+        </div>
+
+        <!-- SOCIAL PROOF -->
+        <div class="social-proof-banner">
+          <span class="proof-number" id="todayCount">12,847</span> लोगों ने आज अपना 2026 देखा
+        </div>
+
+        <!-- PERSONALIZED HEADER -->
+        <div class="personalized-header">
+          <div class="zodiac-badge" id="zodiacBadge">♈</div>
+          <h2 id="resultTitle" class="result-main-title"></h2>
+          <p class="generated-text">AI Generated • <span id="generatedTime">अभी</span></p>
+        </div>
+
+        <!-- SCORE WITH CONTEXT -->
         <div class="result-card" id="resultCard">
-          <!-- Viral Lock Overlay - Multi-Path Unlock -->
-          <div id="viralLockOverlay">
-            <div class="lock-icon">🔒</div>
-            <div class="lock-text">Full Result Locked!</div>
-            <div class="lock-subtext">अनलॉक करने के लिए कोई भी एक option चुनो:</div>
+          <div class="score-section">
+            <div class="score-label">तुम्हारा ACCURACY SCORE</div>
+            <div class="score-circle-wrapper">
+              <div class="score-circle">
+                <span id="resultScore">95</span><span class="percent">%</span>
+              </div>
+            </div>
+            <div class="score-comparison">
+              <span class="your-score">तुम्हारा: <strong id="yourScoreText">95%</strong></span>
+              <span class="avg-score">Average: 71%</span>
+            </div>
+            <div class="score-verdict" id="scoreVerdict">🌟 Outstanding! Top 5% में हो!</div>
+          </div>
 
-            <!-- Option A: WhatsApp Share (Primary) -->
+          <!-- PROGRESSIVE REVEAL - What's Unlocked vs Locked -->
+          <div class="reveal-preview">
+            <div class="reveal-item unlocked">
+              <span class="reveal-status">✅</span>
+              <span>तुम्हारा Element: <strong id="elementReveal">Fire 🔥</strong></span>
+            </div>
+            <div class="reveal-item unlocked">
+              <span class="reveal-status">✅</span>
+              <span>Accuracy Level: <strong>Very High</strong></span>
+            </div>
+            <div class="reveal-item locked">
+              <span class="reveal-status">🔒</span>
+              <span>Soulmate का First Letter: <strong class="blur-text">█</strong></span>
+            </div>
+            <div class="reveal-item locked critical">
+              <span class="reveal-status">🔒</span>
+              <span>⚠️ CRITICAL DATE 2026: <strong class="blur-text">██ ████</strong></span>
+            </div>
+            <div class="reveal-item locked warning">
+              <span class="reveal-status">🔒</span>
+              <span>🚨 SECRET WARNING: <strong class="blur-text">████████</strong></span>
+            </div>
+          </div>
+
+          <!-- URGENCY TIMER -->
+          <div class="urgency-box">
+            <span class="urgency-icon">⏰</span>
+            <span>ये reading <strong id="expiryTime">23:59:59</strong> में expire होगी!</span>
+          </div>
+
+          <!-- UNLOCK CTA WITH REASON -->
+          <div class="unlock-section">
+            <p class="unlock-reason">🔓 <strong>Full reading unlock करने के लिए verify करो:</strong></p>
+
             <button class="viral-share-btn" onclick="shareWhatsAppViral()">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
                 <path
                   d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
               </svg>
-              WhatsApp पे शेयर करो 🚀
+              2 Friends को भेजो = UNLOCK 🔓
             </button>
-            <p style="color: #94A3B8; font-size: 0.85rem;"><span id="lockShareCount">0</span>/3 shares</p>
+            <p class="share-subtitle">Share करने से तुम्हारी reading VERIFY होती है</p>
+            <p class="share-count"><span id="lockShareCount">0</span>/2 shares • <span id="fomoCounter">1,247</span> ने
+              unlock किया</p>
 
-            <div class="or-divider">— या —</div>
-
-            <!-- Option B: Enable Notifications -->
-            <button class="notification-btn" onclick="unlockWithNotifications()">
-              🔔 Notifications ON करो
-            </button>
-
-            <!-- Option C: Wait Timer -->
-            <button class="timer-btn" id="timerUnlockBtn" disabled onclick="timerUnlock()">
-              ⏳ <span id="unlockTimer">45</span> सेकंड रुको...
-            </button>
-
-            <!-- FOMO Counter -->
-            <p class="fomo-text">✅ <span id="fomoCounter">1,247</span> लोगों ने पहले ही unlock किया!</p>
-
-            <!-- Teaser: What's Locked -->
-            <div
-              style="margin-top: 15px; padding: 10px; background: rgba(255,215,0,0.1); border-radius: 10px; border: 1px dashed rgba(255,215,0,0.3);">
-              <p style="color: #FFD700; font-size: 0.8rem; margin: 0;">🔮 <strong>Locked में क्या है:</strong></p>
-              <p style="color: #CBD5E1; font-size: 0.75rem; margin: 5px 0 0 0;">
-                ✨ लकी नंबर | 💘 परफेक्ट मैच | 📅 बेस्ट डेट्स | 💡 सीक्रेट टिप
-              </p>
+            <div class="alt-options">
+              <button class="notification-btn" onclick="unlockWithNotifications()">
+                🔔 Notification ON = Instant Unlock
+              </button>
+              <button class="timer-btn" id="timerUnlockBtn" disabled onclick="timerUnlock()">
+                ⏳ <span id="unlockTimer">45</span>s wait करो
+              </button>
             </div>
-          </div>
-
-          <!-- Partial Result (Always Visible) -->
-          <h2 id="resultTitle"></h2>
-          <div class="result-score">
-            <div class="score-circle">
-              <span id="resultScore">95</span>%
-            </div>
-          </div>
-
-          <!-- Blurred Teaser (Visible before unlock) -->
-          <div id="blurredTeaser" style="margin-top: 20px; filter: blur(5px); pointer-events: none; opacity: 0.6;">
-            <p><strong>🎯 तुम्हारा परफेक्ट मैच:</strong> ███ राशि</p>
-            <p><strong>🍀 लकी नंबर:</strong> ██</p>
-            <p><strong>📅 बेस्ट टाइम:</strong> ████-████ 2026</p>
-            <p><strong>💡 सीक्रेट टिप:</strong> ████████████████</p>
           </div>
 
           <!-- Full Result (Hidden until unlocked) -->
