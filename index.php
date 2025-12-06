@@ -17,6 +17,8 @@
     <title>🔮 2026 का तुम्हारा फ्यूचर | फ्री AI एस्ट्रो क्विज़</title>
     <meta name="description"
         content="2026 में क्या होगा? AI से पता करो तुम्हारा लव मैच, करियर, और पैसा! लिमिटेड रीडिंग - 24 घंटे!">
+    <link rel="icon" type="image/png" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
     <link rel="manifest" href="manifest.json">
     <link rel="alternate" type="application/rss+xml" title="AstroQuiz 2026 RSS Feed" href="/feed.xml" />
     <link rel="hub" href="https://pubsubhubbub.appspot.com/" />
