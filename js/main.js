@@ -14,13 +14,13 @@ function updateTimer() {
     const hours = Math.floor(timerSeconds / 3600);
     const minutes = Math.floor((timerSeconds % 3600) / 60);
     const seconds = timerSeconds % 60;
-    
+
     const timerElement = document.getElementById('timer');
     if (timerElement) {
-        timerElement.textContent = 
+        timerElement.textContent =
             `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
-    
+
     if (timerSeconds <= 0) {
         timerSeconds = 86400;
     }
@@ -55,21 +55,16 @@ function closePushPopup() {
 
 function enablePushNotifications() {
     closePushPopup();
-    
-    if (typeof OneSignal !== 'undefined') {
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "YOUR_ONESIGNAL_APP_ID",
-                notifyButton: {
-                    enable: false,
-                },
-                allowLocalhostAsSecureOrigin: true
-            });
-            
-            OneSignal.showNativePrompt();
+
+    // Check if OneSignalDeferred is available (V16 SDK)
+    if (window.OneSignalDeferred) {
+        window.OneSignalDeferred.push(async function (OneSignal) {
+            // Request permission using V16 API
+            console.log("Requesting permission...");
+            await OneSignal.Notifications.requestPermission();
         });
     }
-    
+
     alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
 }
 
