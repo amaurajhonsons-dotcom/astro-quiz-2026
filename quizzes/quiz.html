@@ -128,6 +128,15 @@
 
             <!-- FOMO Counter -->
             <p class="fomo-text">✅ <span id="fomoCounter">1,247</span> लोगों ने पहले ही unlock किया!</p>
+
+            <!-- Teaser: What's Locked -->
+            <div
+              style="margin-top: 15px; padding: 10px; background: rgba(255,215,0,0.1); border-radius: 10px; border: 1px dashed rgba(255,215,0,0.3);">
+              <p style="color: #FFD700; font-size: 0.8rem; margin: 0;">🔮 <strong>Locked में क्या है:</strong></p>
+              <p style="color: #CBD5E1; font-size: 0.75rem; margin: 5px 0 0 0;">
+                ✨ लकी नंबर | 💘 परफेक्ट मैच | 📅 बेस्ट डेट्स | 💡 सीक्रेट टिप
+              </p>
+            </div>
           </div>
 
           <!-- Partial Result (Always Visible) -->
@@ -136,6 +145,14 @@
             <div class="score-circle">
               <span id="resultScore">95</span>%
             </div>
+          </div>
+
+          <!-- Blurred Teaser (Visible before unlock) -->
+          <div id="blurredTeaser" style="margin-top: 20px; filter: blur(5px); pointer-events: none; opacity: 0.6;">
+            <p><strong>🎯 तुम्हारा परफेक्ट मैच:</strong> ███ राशि</p>
+            <p><strong>🍀 लकी नंबर:</strong> ██</p>
+            <p><strong>📅 बेस्ट टाइम:</strong> ████-████ 2026</p>
+            <p><strong>💡 सीक्रेट टिप:</strong> ████████████████</p>
           </div>
 
           <!-- Full Result (Hidden until unlocked) -->
