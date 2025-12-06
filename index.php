@@ -208,18 +208,39 @@
 
     <!-- Latest Articles for SEO -->
     <section class="container" style="margin-top: 40px; margin-bottom: 40px;">
-        <h2 class="section-title">📰 Latest Astro Reads</h2>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 class="section-title" style="margin-bottom:0;">📰 Deep Astro Insights</h2>
+            <a href="articles/index.html" style="color:#6200ea; font-weight:bold; text-decoration:none;">View All (10+)
+                &rarr;</a>
+        </div>
+        <p style="margin-top:5px; margin-bottom:20px; color:#666;">Explore deep predictions about career, health, and
+            love.</p>
+
         <div class="quiz-grid">
             <div class="quiz-card" onclick="window.location.href='articles/love-horoscope-2026.html'">
                 <div class="quiz-icon">❤️</div>
                 <h3>2026 Love Horoscope</h3>
-                <p>क्या आपको मिलेगा सच्चा प्यार? Full Report.</p>
+                <p>Read Full Report.</p>
             </div>
             <div class="quiz-card" onclick="window.location.href='articles/money-career-2026.html'">
                 <div class="quiz-icon">💰</div>
                 <h3>Money & Career 2026</h3>
-                <p>क्या आप बनेंगे करोड़पति? जानें यहाँ।</p>
+                <p>Read Full Report.</p>
             </div>
+            <div class="quiz-card" onclick="window.location.href='articles/career-trends-2026.html'">
+                <div class="quiz-icon">🚀</div>
+                <h3>Career Trends 2026</h3>
+                <p>AI & Job Market Report.</p>
+            </div>
+            <div class="quiz-card" onclick="window.location.href='articles/shani-sade-sati-2026.html'">
+                <div class="quiz-icon">🪐</div>
+                <h3>Shani Sade Sati</h3>
+                <p>Is Saturn watching you?</p>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:20px;">
+            <a href="articles/index.html" class="cta-button"
+                style="padding:10px 30px; font-size:1rem; display:inline-block;">📖 Read All Articles</a>
         </div>
     </section>
 
