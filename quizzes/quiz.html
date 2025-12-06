@@ -17,7 +17,7 @@
   <title id="quizTitle">AI क्विज़ | AstroQuiz 2026</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/quiz.css">
-  <link rel="stylesheet" href="../css/result-clean.css">
+  <link rel="stylesheet" href="../css/result-strategic.css">
   <link rel="stylesheet" href="../css/header-footer.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <!-- Firebase SDKs -->
@@ -113,149 +113,305 @@
     </div>
 
     <div class="result-screen" id="resultScreen" style="display:none;">
-      <div class="result-content">
+      <!-- Beautiful Result Card with Zodiac Gradient -->
+      <div class="result-hero" id="resultHero">
+        <div class="zodiac-symbol" id="zodiacSymbol">♌</div>
+        <h1 class="user-greeting" id="userGreeting">Rajesh, तुम Leo हो 🦁</h1>
+        <p class="key-insight" id="keyInsight">2026 में तुम्हारी confidence magnetic बनेगी</p>
+      </div>
 
-        <!-- Compact Trust Bar -->
-        <div class="trust-bar-compact">
-          <span class="trust-item">🔬 Vedic AI</span>
-          <span class="trust-item live-compact">
-            <span class="live-dot"></span>
-            <span id="liveViewers">847</span> live
-          </span>
-        </div>
+      <!-- 25% Teaser Content -->
+      <div class="teaser-sections" id="teaserSections">
 
-        <!-- Hero Score Section -->
-        <div class="hero-score-section">
-          <div class="score-circle-hero">
-            <span id="resultScore">95</span><span class="percent-sign">%</span>
+        <!-- Love Preview -->
+        <div class="section-preview love-section">
+          <div class="section-header">
+            <span class="section-icon">💘</span>
+            <h3>Love & Relationships</h3>
           </div>
-          <h2 id="resultTitle" class="hero-title"></h2>
-          <p class="hero-subtitle"><span id="todayCount">12,847</span> लोगों ने आज देखा</p>
-        </div>
-
-        <!-- Result Card -->
-        <div class="result-card-clean">
-
-          <!-- Quick Stats (Unlocked) -->
-          <div class="quick-stats">
-            <div class="stat-item">
-              <div class="stat-icon">🔥</div>
-              <div class="stat-content">
-                <div class="stat-label">Accuracy</div>
-                <div class="stat-value">Top 5%</div>
-              </div>
+          <p class="visible-text" id="loveTeaser">
+            Loading...
+          </p>
+          <div class="locked-blur">
+            <div class="blur-content">
+              <p>████████████████████</p>
+              <p>████████████████████</p>
             </div>
-            <div class="stat-item">
-              <div class="stat-icon">✨</div>
-              <div class="stat-content">
-                <div class="stat-label">Element</div>
-                <div class="stat-value" id="elementReveal">Fire</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Locked Preview -->
-          <div class="locked-preview">
-            <div class="locked-header">
-              <span class="lock-badge">🔒 Full Report Locked</span>
-            </div>
-            <div class="locked-items">
-              <div class="locked-item">💘 Soulmate Letter: <span class="blur-pill">█</span></div>
-              <div class="locked-item">📅 Critical Date: <span class="blur-pill">██ ████</span></div>
-              <div class="locked-item">⚠️ Secret Warning: <span class="blur-pill">████████</span></div>
-            </div>
-          </div>
-
-          <!-- Urgency Strip -->
-          <div class="urgency-strip">
-            ⏰ Expires in <strong id="expiryTime">23:59:59</strong>
-          </div>
-
-          <!-- CTA Section -->
-          <div class="cta-section">
-            <button class="primary-cta-btn" onclick="shareWhatsAppViral()">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-              </svg>
-              <span>Share with 2 Friends to Unlock</span>
-            </button>
-            <p class="cta-subtitle">
-              <span id="lockShareCount">0</span>/2 shares • <span id="fomoCounter">1,247</span> unlocked
-            </p>
-
-            <div class="alt-unlock-options">
-              <button class="alt-btn" onclick="unlockWithNotifications()">🔔 Enable Notifications</button>
-              <button class="alt-btn timer-alt" id="timerUnlockBtn" disabled onclick="timerUnlock()">
-                ⏳ Wait <span id="unlockTimer">45</span>s
-              </button>
-            </div>
-          </div>
-
-          <!-- Full Result (Hidden until unlocked) -->
-          <div id="fullResultSection" style="display: none;">
-            <div class="result-details" id="resultDetails"></div>
-          </div>
-
-        </div>
-
-        <div class="share-section">
-          <h3>🔥 फ्रेंड्स को भेजो!</h3>
-          <p>शेयर करो और अनलॉक करो <strong>एक्स्ट्रा प्रेडिक्शन</strong> 🎁</p>
-          <div class="share-buttons">
-            <button class="share-btn whatsapp" onclick="shareWhatsApp()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-              </svg>
-              WhatsApp
-            </button>
-            <button class="share-btn twitter" onclick="shareTwitter()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-              X (Twitter)
-            </button>
-            <button class="share-btn download" onclick="downloadResult()">
-              📥 डाउनलोड इमेज
-            </button>
+            <div class="unlock-badge">🔒 LOCKED</div>
           </div>
         </div>
 
-        <div class="referral-section">
-          <div class="referral-card">
-            <h4>🎁 3 फ्रेंड्स को भेजो = फ्री बोनस रीडिंग!</h4>
-            <div class="referral-progress">
-              <div class="referral-bar">
-                <div class="referral-fill" id="referralFill" style="width: 0%"></div>
-              </div>
-              <p><span id="referralCount">0</span>/3 शेयर्स</p>
+        <!-- Money Preview -->
+        <div class="section-preview money-section">
+          <div class="section-header">
+            <span class="section-icon">💰</span>
+            <h3>Money & Finances</h3>
+          </div>
+          <p class="visible-text" id="moneyTeaser">
+            Loading...
+          </p>
+          <div class="locked-blur">
+            <div class="blur-content">
+              <p>████████████████████</p>
+              <p>████████████████████</p>
             </div>
+            <div class="unlock-badge">🔒 LOCKED</div>
           </div>
         </div>
 
-        <div class="more-quizzes">
-          <h3>🎯 और क्विज़ ट्राई करो!</h3>
-          <div class="mini-quiz-grid" id="moreQuizzes"></div>
+        <!-- Career Preview -->
+        <div class="section-preview career-section">
+          <div class="section-header">
+            <span class="section-icon">👔</span>
+            <h3>Career & Growth</h3>
+          </div>
+          <p class="visible-text" id="careerTeaser">
+            Loading...
+          </p>
+          <div class="locked-blur">
+            <div class="blur-content">
+              <p>████████████████████</p>
+              <p>████████████████████</p>
+            </div>
+            <div class="unlock-badge">🔒 LOCKED</div>
+          </div>
         </div>
 
-        <div class="adsterra-ad">
-          <!-- Adsterra Popunder Ad -->
-          <script type="text/javascript">
-            atOptions = {
-              'key': '5f2b05c12a72b78e51fdea0e1da993d0',
-              'format': 'iframe',
-              'height': 60,
-              'width': 468,
-              'params': {}
-            };
-          </script>
-          <script type="text/javascript"
-            src="//www.topcreativeformat.com/5f2b05c12a72b78e51fdea0e1da993d0/invoke.js"></script>
+      </div>
+
+      <!-- Unlock Section -->
+      <div class="unlock-container" id="unlockContainer">
+        <h3 class="unlock-heading">🔓 पूरा 2026 रीडिंग देखो</h3>
+
+        <!-- PRIMARY: Share to Unlock -->
+        <div class="unlock-option primary-option">
+          <div class="option-badge free-badge">मुफ्त तरीका 🎁</div>
+          <h4>2 दोस्तों को भेजो = FREE UNLOCK</h4>
+          <div class="share-progress">
+            <div class="progress-track">
+              <div class="progress-fill" id="shareProgress" style="width: 0%"></div>
+            </div>
+            <p class="progress-label"><span id="shareCount">0</span>/2 shares</p>
+          </div>
+          <button class="cta-btn whatsapp-cta" id="shareBtn" onclick="shareToUnlock()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+            WhatsApp पर भेजो
+          </button>
+          <p class="option-note">8,247 लोगों ने share करके unlock किया</p>
+        </div>
+
+        <div class="option-divider">या</div>
+
+        <!-- SECONDARY: Pay to Unlock -->
+        <div class="unlock-option secondary-option">
+          <div class="option-badge price-badge">
+            <span class="old-price">₹99</span>
+            <span class="new-price">₹49</span>
+            <span class="discount">50% OFF</span>
+          </div>
+          <h4>तुरंत Unlock करो</h4>
+          <ul class="benefits">
+            <li>✓ पूरा Love, Money, Career analysis</li>
+            <li>✓ Lucky dates & specific predictions</li>
+            <li>✓ 30 दिन Daily horoscope FREE</li>
+          </ul>
+          <button class="cta-btn payment-cta" id="paymentBtn" onclick="initiatePayment()">
+            ₹49 में अभी खरीदो
+          </button>
+          <p class="option-note">🔒 100% सुरक्षित payment</p>
+        </div>
+      </div>
+
+      <!-- Full Content (Hidden Until Unlocked) -->
+      <div class="full-reading" id="fullReading" style="display:none;">
+        <div class="unlock-success">
+          <h2>🎉 Unlocked Successfully!</h2>
+        </div>
+
+        <div class="full-section love-full">
+          <h3>💘 Love & Relationships 2026</h3>
+          <div id="loveFullContent"></div>
+        </div>
+
+        <div class="full-section money-full">
+          <h3>💰 Money & Finances 2026</h3>
+          <div id="moneyFullContent"></div>
+        </div>
+
+        <div class="full-section career-full">
+          <h3>👔 Career & Growth 2026</h3>
+          <div id="careerFullContent"></div>
+        </div>
+
+        <!-- Share Again After Unlock -->
+        <div class="share-result-prompt">
+          <h4>दोस्तों को भी भेजो! 🎁</h4>
+          <button class="cta-btn whatsapp-cta-secondary" onclick="shareResult()">
+            WhatsApp पर Share करो
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Email Capture Popup (Shows After Unlock) -->
+    <div class="email-popup" id="emailPopup" style="display:none;">
+      <div class="popup-overlay" onclick="closeEmailPopup()"></div>
+      <div class="popup-content">
+        <button class="popup-close" onclick="closeEmailPopup()">×</button>
+        <h3>📧 Daily Free Predictions!</h3>
+        <p>रोज़ तुम्हारे लिए personalized horoscope पाओ</p>
+        <input type="email" id="emailInput" placeholder="your@email.com" class="email-input">
+        <button class="subscribe-btn" onclick="captureEmail()">Subscribe FREE</button>
+        <p class="privacy-note">🔒 We respect your privacy</p>
+      </div>
+    </div>
+
+
+    <!-- Compact Trust Bar -->
+    <div class="trust-bar-compact">
+      <span class="trust-item">🔬 Vedic AI</span>
+      <span class="trust-item live-compact">
+        <span class="live-dot"></span>
+        <span id="liveViewers">847</span> live
+      </span>
+    </div>
+
+    <!-- Hero Score Section -->
+    <div class="hero-score-section">
+      <div class="score-circle-hero">
+        <span id="resultScore">95</span><span class="percent-sign">%</span>
+      </div>
+      <h2 id="resultTitle" class="hero-title"></h2>
+      <p class="hero-subtitle"><span id="todayCount">12,847</span> लोगों ने आज देखा</p>
+    </div>
+
+    <!-- Result Card -->
+    <div class="result-card-clean">
+
+      <!-- Quick Stats (Unlocked) -->
+      <div class="quick-stats">
+        <div class="stat-item">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-content">
+            <div class="stat-label">Accuracy</div>
+            <div class="stat-value">Top 5%</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">✨</div>
+          <div class="stat-content">
+            <div class="stat-label">Element</div>
+            <div class="stat-value" id="elementReveal">Fire</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Locked Preview -->
+      <div class="locked-preview">
+        <div class="locked-header">
+          <span class="lock-badge">🔒 Full Report Locked</span>
+        </div>
+        <div class="locked-items">
+          <div class="locked-item">💘 Soulmate Letter: <span class="blur-pill">█</span></div>
+          <div class="locked-item">📅 Critical Date: <span class="blur-pill">██ ████</span></div>
+          <div class="locked-item">⚠️ Secret Warning: <span class="blur-pill">████████</span></div>
+        </div>
+      </div>
+
+      <!-- Urgency Strip -->
+      <div class="urgency-strip">
+        ⏰ Expires in <strong id="expiryTime">23:59:59</strong>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <button class="primary-cta-btn" onclick="shareWhatsAppViral()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+          </svg>
+          <span>Share with 2 Friends to Unlock</span>
+        </button>
+        <p class="cta-subtitle">
+          <span id="lockShareCount">0</span>/2 shares • <span id="fomoCounter">1,247</span> unlocked
+        </p>
+
+        <div class="alt-unlock-options">
+          <button class="alt-btn" onclick="unlockWithNotifications()">🔔 Enable Notifications</button>
+          <button class="alt-btn timer-alt" id="timerUnlockBtn" disabled onclick="timerUnlock()">
+            ⏳ Wait <span id="unlockTimer">45</span>s
+          </button>
+        </div>
+      </div>
+
+      <!-- Full Result (Hidden until unlocked) -->
+      <div id="fullResultSection" style="display: none;">
+        <div class="result-details" id="resultDetails"></div>
+      </div>
+
+    </div>
+
+    <div class="share-section">
+      <h3>🔥 फ्रेंड्स को भेजो!</h3>
+      <p>शेयर करो और अनलॉक करो <strong>एक्स्ट्रा प्रेडिक्शन</strong> 🎁</p>
+      <div class="share-buttons">
+        <button class="share-btn whatsapp" onclick="shareWhatsApp()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+          </svg>
+          WhatsApp
+        </button>
+        <button class="share-btn twitter" onclick="shareTwitter()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+          X (Twitter)
+        </button>
+        <button class="share-btn download" onclick="downloadResult()">
+          📥 डाउनलोड इमेज
+        </button>
+      </div>
+    </div>
+
+    <div class="referral-section">
+      <div class="referral-card">
+        <h4>🎁 3 फ्रेंड्स को भेजो = फ्री बोनस रीडिंग!</h4>
+        <div class="referral-progress">
+          <div class="referral-bar">
+            <div class="referral-fill" id="referralFill" style="width: 0%"></div>
+          </div>
+          <p><span id="referralCount">0</span>/3 शेयर्स</p>
         </div>
       </div>
     </div>
+
+    <div class="more-quizzes">
+      <h3>🎯 और क्विज़ ट्राई करो!</h3>
+      <div class="mini-quiz-grid" id="moreQuizzes"></div>
+    </div>
+
+    <div class="adsterra-ad">
+      <!-- Adsterra Popunder Ad -->
+      <script type="text/javascript">
+        atOptions = {
+          'key': '5f2b05c12a72b78e51fdea0e1da993d0',
+          'format': 'iframe',
+          'height': 60,
+          'width': 468,
+          'params': {}
+        };
+      </script>
+      <script type="text/javascript"
+        src="//www.topcreativeformat.com/5f2b05c12a72b78e51fdea0e1da993d0/invoke.js"></script>
+    </div>
+  </div>
+  </div>
   </div>
 
   <!-- Footer for Google Discover -->

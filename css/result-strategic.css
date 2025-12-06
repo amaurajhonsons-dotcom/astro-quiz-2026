@@ -1,0 +1,598 @@
+/* ========== CLEAN STRATEGIC FUNNEL UI ========== */
+/* Mobile-First, Conversion-Optimized, Share-Worthy Design */
+
+/* Result Hero - Beautiful Gradient Background */
+.result-hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: linear-gradient(135deg,
+            var(--zodiac-color-1, #8b5cf6) 0%,
+            var(--zodiac-color-2, #ec4899) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.result-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.zodiac-symbol {
+    font-size: 120px;
+    line-height: 1;
+    margin-bottom: 20px;
+    animation: zoomIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.user-greeting {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+    position: relative;
+    z-index: 1;
+}
+
+.key-insight {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    margin: 0;
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Teaser Sections - 25% Preview */
+.teaser-sections {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.section-preview {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.section-icon {
+    font-size: 28px;
+}
+
+.section-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.visible-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #e2e8f0;
+    margin: 0 0 12px;
+    font-weight: 500;
+}
+
+/* Locked Blur Effect */
+.locked-blur {
+    position: relative;
+    margin-top: 12px;
+}
+
+.blur-content {
+    filter: blur(6px);
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.blur-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin: 8px 0;
+}
+
+.unlock-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* Unlock Container */
+.unlock-container {
+    padding: 30px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.unlock-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 30px;
+}
+
+/* Unlock Options */
+.unlock-option {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.primary-option {
+    border-color: rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+}
+
+.option-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.free-badge {
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: white;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.price-badge {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.new-price {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.discount {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.unlock-option h4 {
+    font-size: 19px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 16px;
+}
+
+/* Share Progress */
+.share-progress {
+    margin: 16px 0;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10B981, #059669);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress-label {
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+    margin: 0;
+}
+
+.progress-label span {
+    color: #10B981;
+    font-weight: 700;
+}
+
+/* CTA Buttons */
+.cta-btn {
+    width: 100%;
+    padding: 18px 24px;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    -webkit-user-select: none;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.whatsapp-cta {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-cta:active {
+    transform: scale(0.98);
+}
+
+.payment-cta {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+.payment-cta:active {
+    transform: scale(0.98);
+}
+
+.cta-btn svg {
+    flex-shrink: 0;
+}
+
+/* Benefits List */
+.benefits {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+}
+
+.benefits li {
+    font-size: 14px;
+    color: #cbd5e1;
+    padding: 8px 0;
+    font-weight: 500;
+}
+
+.option-note {
+    font-size: 12px;
+    color: #64748b;
+    text-align: center;
+    margin: 12px 0 0;
+}
+
+/* Option Divider */
+.option-divider {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px 0;
+    position: relative;
+}
+
+.option-divider::before,
+.option-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.option-divider::before {
+    left: 0;
+}
+
+.option-divider::after {
+    right: 0;
+}
+
+/* Full Reading (After Unlock) */
+.full-reading {
+    padding: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.unlock-success {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.unlock-success h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    animation: celebration 0.6s ease-out;
+}
+
+@keyframes celebration {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.full-section {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.full-section h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 16px;
+}
+
+.full-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #e2e8f0;
+    margin: 12px 0;
+}
+
+.full-section strong {
+    color: white;
+    font-weight: 700;
+}
+
+/* Share Result Prompt */
+.share-result-prompt {
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+.share-result-prompt h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 16px;
+}
+
+.whatsapp-cta-secondary {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+
+/* Email Popup */
+.email-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.popup-content {
+    position: relative;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 32px 24px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.popup-content h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 8px;
+}
+
+.popup-content p {
+    font-size: 14px;
+    color: #94a3b8;
+    margin: 0 0 24px;
+}
+
+.email-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    font-size: 15px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.email-input::placeholder {
+    color: #64748b;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+}
+
+.privacy-note {
+    font-size: 11px !important;
+    color: #64748b !important;
+    margin-top: 12px !important;
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+    .user-greeting {
+        font-size: 28px;
+    }
+
+    .zodiac-symbol {
+        font-size: 100px;
+    }
+
+    .unlock-heading {
+        font-size: 20px;
+    }
+}
+
+/* Desktop Enhancement */
+@media (min-width: 769px) {
+    .result-hero {
+        padding: 80px 40px 60px;
+    }
+
+    .zodiac-symbol {
+        font-size: 140px;
+    }
+
+    .user-greeting {
+        font-size: 36px;
+    }
+
+    .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+    }
+}
