@@ -1,0 +1,346 @@
+/* ========== CLEAN PROFESSIONAL RESULT PAGE STYLES ========== */
+
+/* Compact Trust Bar */
+.trust-bar-compact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 20px;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    margin-bottom: 40px;
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.trust-bar-compact .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.trust-bar-compact .live-compact {
+    background: rgba(16, 185, 129, 0.15);
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #10B981;
+    font-weight: 600;
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background: #10B981;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* Hero Score Section */
+.hero-score-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.score-circle-hero {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.1);
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 40px rgba(139, 92, 246, 0.2),
+        inset 0 0 30px rgba(139, 92, 246, 0.05);
+    font-size: 64px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.percent-sign {
+    font-size: 32px;
+    opacity: 0.9;
+}
+
+.hero-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.hero-subtitle {
+    font-size: 14px;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.hero-subtitle span {
+    color: #fbbf24;
+    font-weight: 700;
+}
+
+/* Clean Result Card */
+.result-card-clean {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.result-card-clean::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Quick Stats */
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Locked Preview */
+.locked-preview {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.locked-header {
+    margin-bottom: 16px;
+}
+
+.lock-badge {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.locked-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.locked-item {
+    font-size: 14px;
+    color: #cbd5e1;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.blur-pill {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    filter: blur(3px);
+    user-select: none;
+}
+
+/* Urgency Strip */
+.urgency-strip {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: #fca5a5;
+    margin-bottom: 30px;
+}
+
+.urgency-strip strong {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* CTA Section */
+.cta-section {
+    text-align: center;
+}
+
+.primary-cta-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border: none;
+    padding: 18px 36px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow:
+        0 4px 20px rgba(37, 211, 102, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+}
+
+.primary-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 30px rgba(37, 211, 102, 0.4),
+        0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cta-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.cta-subtitle span {
+    color: #10B981;
+    font-weight: 600;
+}
+
+.alt-unlock-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.alt-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.alt-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.alt-btn.timer-alt {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.alt-btn.timer-alt.ready {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* Result Details */
+.result-details {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .result-card-clean {
+        padding: 20px;
+    }
+
+    .score-circle-hero {
+        width: 160px;
+        height: 160px;
+        font-size: 52px;
+    }
+
+    .hero-title {
+        font-size: 20px;
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .primary-cta-btn {
+        padding: 16px 28px;
+        font-size: 15px;
+    }
+
+    .alt-unlock-options {
+        flex-direction: column;
+    }
+
+    .alt-btn {
+        width: 100%;
+    }
+}
