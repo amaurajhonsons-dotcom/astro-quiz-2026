@@ -1,4 +1,5 @@
-require_once __DIR__ . '/../includes/auth_helper.php';
+<?php
+require_once '../includes/auth_helper.php';
 
 header('Content-Type: text/plain');
 
@@ -52,11 +53,12 @@ echo "Created Ruleset: $rulesetName\n";
 
 // 3. Update the Release (cloud.firestore)
 $releaseName = "projects/$projectId/releases/cloud.firestore";
-$updateReleaseUrl = "https://firebaserules.googleapis.com/v1/$releaseName?updateMask=rulesetName";
+$updateReleaseUrl = "https://firebaserules.googleapis.com/v1/$releaseName";
 
-// AIP-134: Body contains only the field being updated (or full resource), name in URL
+// Try PATCH with snake_case
 $releaseData = [
-    'rulesetName' => $rulesetName
+    'name' => $releaseName,
+    'ruleset_name' => $rulesetName
 ];
 
 $ch = curl_init();
@@ -81,7 +83,7 @@ if ($httpCode === 200) {
     $createReleaseUrl = "https://firebaserules.googleapis.com/v1/projects/$projectId/releases";
     $createData = [
         'name' => $releaseName,
-        'rulesetName' => $rulesetName
+        'ruleset_name' => $rulesetName
     ];
 
     $ch = curl_init();

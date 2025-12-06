@@ -224,6 +224,7 @@
         <div class="container">
             <p>&copy; 2026 AstroQuiz. All Rights Reserved.</p>
             <div class="footer-links">
+                <a href="#" onclick="enablePushNotifications(); return false;">🔔 Enable Notifications</a>
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
                 <a href="#">Contact Us</a>
@@ -231,7 +232,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=7.0"></script>
+    <script src="js/main.js?v=8.0"></script>
     <script src="js/quiz-engine.js"></script>
     <script src="js/viral-hooks.js"></script>
 </body>

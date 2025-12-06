@@ -52,6 +52,17 @@ function closePushPopup() {
     }
 }
 
+// Handle Incoming Messages (Foreground)
+if (messaging) {
+    messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+        const { title, body, icon } = payload.notification;
+        // Show custom alert or toast
+        alert(`🔔 ${title}\n\n${body}`);
+        // Optional: Update UI or Badges here
+    });
+}
+
 // Custom Firebase Push Logic
 async function enablePushNotifications() {
     // This function is now termed "Native Request" usually called after Soft Prompt interaction
