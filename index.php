@@ -299,6 +299,15 @@
     <script src="js/main.js?v=8.0"></script>
     <script src="js/quiz-engine.js"></script>
     <script src="js/viral-hooks.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered!', reg))
+                    .catch(err => console.log('SW failed', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
