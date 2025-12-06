@@ -1,0 +1,167 @@
+/* ========== HEADER & FOOTER FOR GOOGLE DISCOVER ========== */
+
+/* Header Styles */
+.site-header {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.logo-icon {
+    font-size: 24px;
+}
+
+.logo-text {
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:active {
+    background: rgba(139, 92, 246, 0.2);
+    color: #fff;
+}
+
+/* Footer Styles */
+.site-footer {
+    background: rgba(15, 23, 42, 0.98);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 40px;
+    padding: 40px 20px 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.footer-logo {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-brand p {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.footer-col a {
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 0;
+    transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+    color: #8b5cf6;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .main-nav {
+        gap: 10px;
+    }
+
+    .nav-link {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+/* Adjust quiz-body for header */
+.quiz-body {
+    padding-top: 0 !important;
+}
+
+/* Ensure quiz container has proper spacing */
+.quiz-container {
+    margin-top: 20px;
+}

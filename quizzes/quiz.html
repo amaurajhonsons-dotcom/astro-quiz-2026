@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/quiz.css">
   <link rel="stylesheet" href="../css/result-clean.css">
+  <link rel="stylesheet" href="../css/header-footer.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -49,6 +50,23 @@
 </head>
 
 <body class="quiz-body">
+  <!-- Header for Google Discover Eligibility -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="../index.php">
+          <span class="logo-icon">🔮</span>
+          <span class="logo-text">AstroQuiz 2026</span>
+        </a>
+      </div>
+      <nav class="main-nav">
+        <a href="../index.php" class="nav-link">Home</a>
+        <a href="../index.php#quizzes" class="nav-link">Quizzes</a>
+        <a href="../privacy.html" class="nav-link">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
   <!-- Adsterra Social Bar (Top Sticky) -->
   <script type="text/javascript"
     src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js"></script>
@@ -223,13 +241,49 @@
         </div>
 
         <div class="adsterra-ad">
-          <div class="ad-placeholder">
-            [Adsterra Popunder यहां ट्रिगर होगा]
-          </div>
+          <!-- Adsterra Popunder Ad -->
+          <script type="text/javascript">
+            atOptions = {
+              'key': '5f2b05c12a72b78e51fdea0e1da993d0',
+              'format': 'iframe',
+              'height': 60,
+              'width': 468,
+              'params': {}
+            };
+          </script>
+          <script type="text/javascript"
+            src="//www.topcreativeformat.com/5f2b05c12a72b78e51fdea0e1da993d0/invoke.js"></script>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Footer for Google Discover -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="footer-logo">🔮 AstroQuiz 2026</span>
+        <p>AI-Powered Astrology Predictions</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="../index.php">Home</a>
+          <a href="../index.php#quizzes">All Quizzes</a>
+          <a href="../privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="../terms.html">Terms of Service</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../index.php#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 AstroQuiz. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="../js/quiz-engine.js"></script>
   <script src="../js/data.js"></script>
