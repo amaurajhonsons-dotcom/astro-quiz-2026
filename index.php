@@ -78,10 +78,8 @@
     </script>
 </head>
 
-<body class="home-body">
-    <!-- Adsterra Social Bar (Top Sticky) -->
-    <script type="text/javascript"
-        src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js"></script>
+<body class="mystic-body">
+    <!-- Optimized: Ads moved to footer -->
     <div class="floating-timer">
         ⏰ <span id="timer">23:59:47</span> में खत्म!
     </div>
@@ -270,9 +268,9 @@
         </div>
     </section>
 
-    <!-- Adsterra Mobile Banner 320x50 -->
+    <!-- Optimized for LCP -->
     <div style="text-align: center; margin: 40px 0; padding: 20px;">
-        <p style="font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 10px;">SPONSORED</p>
+        <p style="font-size: 11px; color: rgba(0,0,0,0.3); margin-bottom: 10px;">SPONSORED</p>
         <script type="text/javascript">
             atOptions = {
                 'key': '23c858baf0517be4c93981cd8786b93c',
@@ -285,6 +283,10 @@
         <script type="text/javascript"
             src="//www.highperformanceformat.com/23c858baf0517be4c93981cd8786b93c/invoke.js"></script>
     </div>
+
+    <!-- Adsterra Social Bar (Deferred for Speed) -->
+    <script type="text/javascript" src="//pl28198047.effectivegatecpm.com/14/2d/0b/142d0b238e726b90898d76e2bb2b4f20.js"
+        defer></script>
 
     <footer class="footer">
         <div class="container">
