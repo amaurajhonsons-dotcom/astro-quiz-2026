@@ -39,29 +39,35 @@ try {
 
     // Using the token directly with Firestore REST API
     $projectId = 'astro-quiz-push-2026';
-    $firestoreUrl = "https://firestore.googleapis.com/v1/projects/$projectId/databases/(default)/documents/subscribers?pageSize=1000";
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $firestoreUrl);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $accessToken"]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $fsResponse = curl_exec($ch);
-    curl_close($ch);
-
-    $fsData = json_decode($fsResponse, true);
+    // 2. Fetch Subscribers (or use target)
+    $targetToken = $_POST['target_token'] ?? null;
     $tokens = [];
 
-    if (isset($fsData['documents'])) {
-        foreach ($fsData['documents'] as $doc) {
-            // Document structure: name, fields, createTime, etc.
-            // ID is the last part of 'name'
-            $pathParts = explode('/', $doc['name']);
-            $token = end($pathParts);
-            if ($token)
-                $tokens[] = $token;
+    if ($targetToken) {
+        $tokens[] = $targetToken;
+        echo "Debugging Single Token Mode.\n";
+    } else {
+        // Fetch from Firestore
+        $firestoreUrl = "https://firestore.googleapis.com/v1/projects/$projectId/databases/(default)/documents/subscribers?pageSize=1000";
+        // ... existing list code ...
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $firestoreUrl);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $accessToken"]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        if (isset($data['documents'])) {
+            foreach ($data['documents'] as $doc) {
+                $path = $doc['name']; // projects/.../documents/subscribers/{token}
+                $parts = explode('/', $path);
+                $token = end($parts);
+                if ($token)
+                    $tokens[] = $token;
+            }
         }
     }
-
     if (empty($tokens)) {
         echo json_encode(['success' => false, 'message' => 'No active subscribers in Firestore']);
         exit;
