@@ -1,6 +1,6 @@
-
 import json
 import requests
+import google.auth
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 
@@ -24,6 +24,8 @@ def get_urls_from_sitemap():
         "https://astro-quiz-2026-52bxx.ondigitalocean.app/privacy.html",
         "https://astro-quiz-2026-52bxx.ondigitalocean.app/terms.html"
     ]
+
+
 
 def index_url(url):
     creds = service_account.Credentials.from_service_account_file(
