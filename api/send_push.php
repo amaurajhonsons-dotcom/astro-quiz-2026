@@ -107,14 +107,24 @@ try {
                     'title' => $title,
                     'body' => $body
                 ],
-                'data' => [
-                    'click_action' => $url
+                'webpush' => [
+                    'headers' => [
+                        'Urgency' => 'high'
+                    ],
+                    'notification' => [
+                        'body' => $body,
+                        'requireInteraction' => true
+                    ],
+                    'fcm_options' => [
+                        'link' => $url
+                    ]
                 ]
             ]
         ];
 
         if ($image) {
             $message['message']['notification']['image'] = $image;
+            $message['message']['webpush']['notification']['image'] = $image;
         }
 
         $ch = curl_init();
