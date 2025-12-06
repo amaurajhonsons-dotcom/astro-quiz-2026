@@ -18,6 +18,8 @@
     <meta name="description"
         content="2026 में क्या होगा? AI से पता करो तुम्हारा लव मैच, करियर, और पैसा! लिमिटेड रीडिंग - 24 घंटे!">
     <link rel="manifest" href="manifest.json">
+    <link rel="alternate" type="application/rss+xml" title="AstroQuiz 2026 RSS Feed" href="/feed.xml" />
+    <link rel="hub" href="https://pubsubhubbub.appspot.com/" />
     <meta name="theme-color" content="#1a237e">
     <script type="application/ld+json">
     {
