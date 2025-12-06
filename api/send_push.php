@@ -40,7 +40,7 @@ try {
     // Using the token directly with Firestore REST API
     $projectId = 'astro-quiz-push-2026';
     // 2. Fetch Subscribers (or use target)
-    $targetToken = $_POST['target_token'] ?? null;
+    $targetToken = $input['target_token'] ?? null;
     $tokens = [];
 
     if ($targetToken) {

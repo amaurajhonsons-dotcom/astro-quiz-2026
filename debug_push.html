@@ -164,19 +164,16 @@
             log("Requesting Test Push from Backend...");
 
             try {
-                const formData = new FormData();
-                formData.append('title', 'Debug Test');
-                formData.append('body', 'This is a test from the debugger.');
-                formData.append('target_token', currentToken); // Backend needs to support this or we blast all
-
-                // Note: Current api/send_push.php blasts ALL. We might need to modify it or just observe.
-                // For now, let's just trigger the main send and see if WE get it.
-                // Actually, let's modify api/send_push.php to accept a specific token for testing?
-                // Or just use the main blast and see.
+                const payload = {
+                    title: 'Debug Test',
+                    body: 'This is a test from the debugger.',
+                    target_token: currentToken
+                };
 
                 const response = await fetch('api/send_push.php', {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
                 });
                 const txt = await response.text();
                 log("Backend Response: " + txt);
