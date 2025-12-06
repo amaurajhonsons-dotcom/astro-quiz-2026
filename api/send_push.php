@@ -10,14 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($input['title']) || !isset($input['body'])) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Title and Body required']);
-    exit;
-}
-
-$title = $input['title'];
-$body = $input['body'];
+// Lenient Input Handling
+$title = $input['title'] ?? 'System Notification';
+$body = $input['body'] ?? 'You have a new update.';
+// Remove strict check
+// if (!isset($input['title']) ...
 $image = $input['image'] ?? '';
 $url = $input['url'] ?? '/';
 
