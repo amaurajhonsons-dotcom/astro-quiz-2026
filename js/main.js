@@ -53,43 +53,78 @@ function closePushPopup() {
     }
 }
 
-function enablePushNotifications() {
+// Custom Firebase Push Logic
+async function enablePushNotifications() {
     closePushPopup();
 
-    if (window.OneSignalDeferred) {
-        window.OneSignalDeferred.push(async function (OneSignal) {
-            try {
-                // Check if already blocked
-                if (OneSignal.Notifications.permission === "denied") {
-                    alert("⚠️ आपने Notifications Block कर रखी हैं।\nकृपया Browser Settings में जाकर Reset करें या Allow करें।");
-                    return;
-                }
+    if (!messaging) {
+        alert("Push Notifications supported only on HTTPS or Localhost.");
+        return;
+    }
 
-                if (OneSignal.Notifications.permission === "granted") {
-                    alert('✅ नोटिफिकेशन्स पहले से ही एक्टिव हैं! 🎯');
-                    return;
-                }
+    try {
+        const permission = Notification.permission;
 
-                console.log("Requesting permission...");
-                // Request permission and wait for user response
-                const accepted = await OneSignal.Notifications.requestPermission();
+        if (permission === "denied") {
+            alert("⚠️ आपने Notifications Block कर रखी हैं।\nकृपया Browser Settings में जाकर Reset करें या Allow करें।");
+            return;
+        }
 
-                console.log("Permission state:", accepted);
-
-                if (accepted) {
-                    alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
-                } else {
-                    console.warn("Permission not granted");
-                    // User dismissed or blocked
-                    alert("❌ नोटिफिकेशन Allow नहीं किया गया।\nअपडेट्स के लिए कृपया Allow पर क्लिक करें।");
-                }
-            } catch (error) {
-                console.error("Error asking for permission:", error);
-                alert("Error: " + error.message);
+        if (permission === "granted") {
+            // Check if we already have a token
+            const token = await messaging.getToken({ vapidKey: "YOUR_PUBLIC_VAPID_KEY_IF_NEEDED" });
+            if (token) {
+                alert('✅ नोटिफिकेशन्स पहले से ही एक्टिव हैं! 🎯');
+                console.log("Existing Token:", token);
+                saveTokenToFirestore(token); // Update timestamp
+                return;
             }
+        }
+
+        console.log("Requesting permission...");
+        const newPermission = await Notification.requestPermission();
+
+        if (newPermission === "granted") {
+            // Get Token
+            const token = await messaging.getToken();
+            console.log("Token generated:", token);
+
+            if (token) {
+                await saveTokenToFirestore(token);
+                alert('✅ नोटिफिकेशन्स एक्टिव! डेली अपडेट्स मिलेंगे 🎯');
+            } else {
+                console.error("No Instance ID token available.");
+            }
+        } else {
+            console.warn("Permission not granted");
+            alert("❌ नोटिफिकेशन Allow नहीं किया गया।\nअपडेट्स के लिए कृपया Allow पर क्लिक करें।");
+        }
+    } catch (error) {
+        console.error("Error asking for permission:", error);
+        alert("Error: " + error.message);
+    }
+}
+
+async function saveTokenToFirestore(token) {
+    // Actually saving to PHP backend now
+    try {
+        await fetch('api/subscribe.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: token })
         });
-    } else {
-        alert("सिस्टम लोड हो रहा है, कृपया 2 सेकंड बाद कोशिश करें।");
+        console.log("Token sent to PHP Backend");
+    } catch (error) {
+        // Try fallback path if in subfolder
+        try {
+            await fetch('../api/subscribe.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: token })
+            });
+        } catch (e) {
+            console.error("Error saving token:", error);
+        }
     }
 }
 

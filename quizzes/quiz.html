@@ -18,19 +18,32 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/quiz.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
   <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function (OneSignal) {
-      await OneSignal.init({
-        appId: "d7ec5b54-220f-4f98-9929-4f52a569f804",
-        safari_web_id: "web.onesignal.auto.2900aeea-27da-4bc5-9f95-2e3d9a76781c",
-        notifyButton: {
-          enable: true,
-        },
-        allowLocalhostAsSecureOrigin: true,
-      });
-    });
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPn7Wa7Cw0_NeiGNuCgUlJcIsJjNFTk84",
+      authDomain: "astro-quiz-push-2026.firebaseapp.com",
+      projectId: "astro-quiz-push-2026",
+      storageBucket: "astro-quiz-push-2026.firebasestorage.app",
+      messagingSenderId: "659060108550",
+      appId: "1:659060108550:web:81bfa17f16d75453580287"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Initialize Messaging
+    let messaging;
+    try {
+      messaging = firebase.messaging();
+    } catch (e) {
+      console.log("Firebase Messaging failed (likely HTTP)", e);
+    }
   </script>
 </head>
 
