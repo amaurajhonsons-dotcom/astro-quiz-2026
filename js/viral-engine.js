@@ -45,6 +45,16 @@ const ViralEngine = {
         this.saveData();
         this.updateShareCount();
 
+        // Save to Firestore for admin analytics
+        if (typeof db !== 'undefined') {
+            db.collection('shares').add({
+                platform: platform,
+                referralCode: this.data.referralCode,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                userAgent: navigator.userAgent.substring(0, 100)
+            }).catch(e => console.log('Share log failed', e));
+        }
+
         if (this.data.shareCount >= this.REQUIRED_SHARES) {
             this.unlock('share');
         }

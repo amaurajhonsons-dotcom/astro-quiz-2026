@@ -4,5 +4,13 @@ service cloud.firestore {
     match /subscribers/{token} {
       allow read, write: if true;
     }
+    match /shares/{docId} {
+      allow read: if true;
+      allow create: if true;
+    }
+    match /unlocks/{docId} {
+      allow read: if true;
+      allow create: if true;
+    }
   }
 }

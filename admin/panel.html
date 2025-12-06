@@ -137,6 +137,14 @@
                 <div class="stat-number" id="subscriberCount">0</div>
                 <div class="stat-label">Total Subscribers (Live)</div>
             </div>
+            <div class="stat-card" style="background: #e8f5e9;">
+                <div class="stat-number" id="shareCount" style="color: #25D366;">0</div>
+                <div class="stat-label">🔄 WhatsApp Shares (Live)</div>
+            </div>
+            <div class="stat-card" style="background: #fff3e0;">
+                <div class="stat-number" id="unlockCount" style="color: #F59E0B;">0</div>
+                <div class="stat-label">🔓 Unlocks (Live)</div>
+            </div>
         </div>
 
         <div class="tabs">
@@ -189,6 +197,22 @@
         <p id="status"></p>
     </div>
 
+    <!-- Firebase SDK for Real-time Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAPn7Wa7Cw0_NeiGNuCgUlJcIsJjNFTk84",
+            authDomain: "astro-quiz-push-2026.firebaseapp.com",
+            projectId: "astro-quiz-push-2026",
+            storageBucket: "astro-quiz-push-2026.firebasestorage.app",
+            messagingSenderId: "659060108550",
+            appId: "1:659060108550:web:81bfa17f16d75453580287"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
     <script>
         // Tab Logic
         function switchTab(tabId) {
@@ -200,7 +224,7 @@
 
         // Load Data
         function loadData() {
-            // Stats
+            // Subscriber Stats (PHP)
             fetch('../api/stats.php').then(r => r.json()).then(d => {
                 document.getElementById('subscriberCount').innerText = d.count;
             });
@@ -213,6 +237,19 @@
                     document.getElementById('p_btn').value = d.config.btnText;
                     document.getElementById('p_icon').value = d.config.icon;
                 }
+            });
+        }
+
+        // Real-time Share Counter (Firestore)
+        function startLiveShareCounter() {
+            // Get total shares count
+            db.collection('shares').onSnapshot(snapshot => {
+                document.getElementById('shareCount').innerText = snapshot.size;
+            });
+
+            // Get unlock count (optional - from unlocks collection)
+            db.collection('unlocks').onSnapshot(snapshot => {
+                document.getElementById('unlockCount').innerText = snapshot.size;
             });
         }
 
@@ -230,15 +267,8 @@
 
             fetch('../api/send_push.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title,
-                    body,
-                    image,
-                    url
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, body, image, url })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -271,22 +301,17 @@
 
             fetch('../api/settings.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title,
-                    subtitle,
-                    btnText,
-                    icon
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, subtitle, btnText, icon })
             }).then(r => r.json()).then(d => {
                 alert(d.message);
                 btn.innerText = "💾 Save Design";
             });
         }
 
+        // Initialize
         loadData();
+        startLiveShareCounter();
     </script>
 
 </body>
