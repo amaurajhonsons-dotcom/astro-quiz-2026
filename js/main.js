@@ -125,6 +125,8 @@ async function saveTokenToFirestore(token) {
         console.log("Token saved to Cloud Firestore");
     } catch (error) {
         console.error("Error saving to Firestore:", error);
+        alert("System Error (DB): " + error.message);
+        throw error; // Propagate error to stop the success alert
     }
 }
 
