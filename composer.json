@@ -1,0 +1,9 @@
+{
+    "name": "astroquiz/app",
+    "description": "Astro Quiz 2026 PHP App",
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "ext-zlib": "*"
+    }
+}
