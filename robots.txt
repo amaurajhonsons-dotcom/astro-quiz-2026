@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Allow: /quizzes/
+Allow: /articles/
 Allow: /css/
 Allow: /js/
 
